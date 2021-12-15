@@ -123,6 +123,7 @@ def train_step(device, model, optimizer, x_mask, x_tokens, y_mask, y_tokens, inp
 
 
 def compute_masked_loss(device, model, optimizer, x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, loss_fn, beta, model_type):
+    model.eval()
     output = []
     if model_type == 'ae_vae_fusion':
 
@@ -871,6 +872,7 @@ def main():
     #generate(test_loader, num_iters)
     torch.save(VAE.state_dict(), os.path.join(save_folder, 'model_' + '{:07d}'.format(num_iters) + '.pt'))
     VAE.load_state_dict(torch.load(os.path.join(save_folder, f'model_positive_books_epoch27.pt')))
+    
     while num_iters < args.iterations:
         # Run epoch
         st = time.time()

@@ -7,6 +7,7 @@ import torch.multiprocessing as mp
 import numpy as np
 from data.util import *
 import copy
+from sklearn.metrics import accuracy_score, f1_score
 
 
 def num_params(model):
@@ -54,3 +55,14 @@ def linear_schedule(args):
         return max((e - args.iterations) / (args.warmup - args.iterations), 0)
 
     return f
+
+def evaluate_classification(pos_losses, neg_losses, labels):
+    predictions = []
+    for p, n in zip(pos_losses, neg_losses):
+        if p > n:
+            predictions.append('negative')
+        else:
+            predictions.append('positive')
+    
+    print('accuracy', accuracy_score(predictions, labels))
+    print('f1 score', f1_score(predictions, labels))
