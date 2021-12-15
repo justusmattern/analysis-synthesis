@@ -437,7 +437,7 @@ def collate_fn(samples):
     # tokenizer.convert_tokens_to_ids('<|startoftext|>') = 50257
     input = torch.LongTensor([ip[2] + [50256] * (max_len - len(ip[2])) for ip in samples])
 
-    label = samples[3]
+    label = [s[3] for s in samples][0]
 
     return x_mask, x, y_mask, y, input[:, :-1], input[:, 1:].contiguous(), input_mask[:, 1:], label
 
