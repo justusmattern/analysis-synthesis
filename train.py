@@ -74,7 +74,7 @@ def compute_loss_ae(device, model, x_mask, x_tokens, y_mask, y_tokens, input_tok
     x_mask = x_mask.to(device)
     x_tokens = x_tokens.to(device)
 
-    outputs = model(input_ids=input_tokens, attention_mask=mask, y_mask=x_mask, y_tokens=x_tokens, from_mean=True, from_prior=False)
+    outputs = model(input_ids=input_tokens, attention_mask=mask, y_mask=x_mask, y_tokens=x_tokens, from_mean=False, from_prior=False)
 
     logits = outputs[0]
     kl_loss = outputs[-1]
@@ -89,7 +89,7 @@ def compute_loss_ae(device, model, x_mask, x_tokens, y_mask, y_tokens, input_tok
 
     ce_loss = loss_fn(logits.view(-1, num_logits), target_tokens.view(-1))
     kl_loss = kl_loss.mean()
-    loss = ce_loss.mean()
+    loss = ce_loss.mean() + beta* kl_loss
 
     return loss, ce_loss, kl_loss
 
@@ -107,7 +107,7 @@ def train_step(device, model, optimizer, x_mask, x_tokens, y_mask, y_tokens, inp
         # torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0) # max_grad_norm=1.0
         optimizer.step()
         output.append((loss.item(), ce_loss.mean().item(), kl_loss.item()))
-
+    """
     optimizer.zero_grad()
     loss, ce_loss, kl_loss = compute_loss(device, model, x_mask, x_tokens, y_mask, y_tokens, input_tokens,
                                           target_tokens, mask, loss_fn, beta)
@@ -118,7 +118,7 @@ def train_step(device, model, optimizer, x_mask, x_tokens, y_mask, y_tokens, inp
     # torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0) # max_grad_norm=1.0
     optimizer.step()
     output.append((loss.item(), ce_loss.mean().item(), kl_loss.item()))
-
+    """
     return output
 
 
@@ -274,8 +274,7 @@ def main():
 
     parser.add_argument('--learn_prior', action="store_true")
 
-    args = parser.parse_args('test --batch-sizes 1 --seq-lens 1024 '
-                             '--add_input --learn_prior --fp16'.split()) # wi.12.proj_vary_beta_cvae
+    args = parser.parse_args() # wi.12.proj_vary_beta_cvae
 
     if args.model_type == 'cvae':
         args.learn_prior = True
@@ -376,14 +375,15 @@ def main():
     assert len(batch_schedule) <= 2, 'Currently not supporting multiple schedule'
     cur_b_schedule = len(batch_schedule) - 1 if args.switch_time == 0 else 0
     print('Batch schedule', batch_schedule)
-    train_loader, val_loader, test_loader = prepare_dataset(
-        args.data_dir, args.dataset, tokenizer,
+    train_loader = prepare_dataset(
+        args.data_dir, 'amazon_positive', tokenizer,
         batch_schedule[cur_b_schedule][0], batch_schedule[cur_b_schedule][1],
         batch_schedule[-1][0], batch_schedule[-1][1],
         batch_schedule[-1][0], batch_schedule[-1][1],
         make_test=True,
         num_workers=args.workers, data_type=args.data_type
-    )
+    )[0]
+    test_loader = train_loader
     print('Done.')
 
     ###
@@ -408,7 +408,7 @@ def main():
     logging.info("Begin training iterations")
     max_val_batches = 20000  # max num. of val batches
     logging.info("Total iteration: %d" % args.iterations)
-    e = 0  # number of epoch
+    e = 27  # number of epoch
     num_iters = 0
     optimizer.zero_grad()
     beta = args.beta_0
@@ -729,15 +729,17 @@ def main():
 
         VAE.train()
 
-    test_plot(test_loader, num_iters)
-    val_step(val_loader)
-    generate(test_loader, num_iters)
+    #test_plot(test_loader, num_iters)
+    #val_step(val_loader)
+    #generate(test_loader, num_iters)
     torch.save(VAE.state_dict(), os.path.join(save_folder, 'model_' + '{:07d}'.format(num_iters) + '.pt'))
-
+    VAE.load_state_dict(torch.load(os.path.join(save_folder, f'model_positive_books_epoch27.pt')))
     while num_iters < args.iterations:
         # Run epoch
         st = time.time()
-
+        epoch_loss = 0
+        epoch_loss_ce = 0
+        epoch_loss_kl = 0
         # Training
         print('Training loop. Batches:', len(train_loader))
         logging.info('\n----------------------------------------------------------------------')
@@ -755,7 +757,7 @@ def main():
                         # print((name, parameter.requires_grad))
                         parameter.requires_grad = True
                     tuning_all = True
-
+                #print('params', list(VAE.transformer.parameters())[2])
                 output = train_step(device, VAE, optimizer, x_mask, x_tokens, y_mask, y_tokens,
                                     input_tokens, target_tokens, mask, loss_fn, beta, args.model_type)
                 loss, ce_loss, kl_loss = output[-1]
@@ -768,13 +770,17 @@ def main():
                 t_writer.add_scalar('iter_time', time.time() - st, num_iters)
                 t_writer.add_scalar('kl', kl_loss, num_iters)
                 t_writer.add_scalar('beta', beta, num_iters)
-
+                
+                """
                 if args.model_type == 'ae_vae_fusion':
                     loss, ce_loss, kl_loss = output[0]
                     # Log to Tensorboard
                     t_writer.add_scalar('ae_loss', loss, num_iters)
                     t_writer.add_scalar('ae_kl', kl_loss, num_iters)
-
+                """
+                epoch_loss += loss
+                epoch_loss_ce += ce_loss
+                epoch_loss_kl += kl_loss
                 st = time.time()
                 end = num_iters >= args.iterations
 
@@ -789,18 +795,19 @@ def main():
                     beta = args.beta_0
                     logging.info('KL annealing restart')
 
-                if num_iters % 10000 == 0:
+                if num_iters % 10000000 == 0:
                     test_plot(test_loader, num_iters)
                     val_step(val_loader)
                     generate(test_loader, num_iters)
 
-                if num_iters % 50000 == 0:
+                if num_iters % 500000000 == 0:
                     print('Saving model...')
                     logging.info("Iteration completed: %d, remained %d" % (num_iters, args.iterations - num_iters))
                     logging.info("Saving model...")
                     logging.info('\n------------------------------------------------------')
                     torch.save(VAE.state_dict(), os.path.join(save_folder, 'model_' + '{:07d}'.format(num_iters) + '.pt'))
 
+                """
                 if args.switch_time > 0 and num_iters == int(args.iterations * args.switch_time):
                     print('Switch to long sequence training')
                     logging.info("Switch to long sequence training")
@@ -813,9 +820,15 @@ def main():
                         make_test=True,
                         num_workers=args.workers, data_type=args.data_type
                     )
-        if not end:
-            e += 1
-            logging.info("Training loop. The ith epoch completed: %d" % e)
+                 """
+
+        
+        e += 1
+        logging.info("Training loop. The ith epoch completed: %d" % e)
+        print(f"epoch {e} overall loss:", epoch_loss)
+        print(f"epoch {e} ce loss:", epoch_loss_ce)
+        print(f"epoch {e} kl loss:", epoch_loss_kl)
+        torch.save(VAE.state_dict(), os.path.join(save_folder, f'model_positive_books_epoch{e}.pt'))
 
     torch.save(VAE.state_dict(), os.path.join(save_folder, 'model_latest.pt'))
     print('Training complete.')

@@ -440,7 +440,7 @@ def collate_fn(samples):
 
 
 def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len, val_bsz, val_seq_len, test_bsz=1,
-                    test_seq_len=1024, data_type='t0', num_workers=1, make_train=True, make_val=True, make_test=False):
+                    test_seq_len=1024, data_type='t0', num_workers=1, make_train=True, make_val=True, make_test=False, ratio=1, domains=['books']):
     # data_dir, dataset_name, tokenizer, train_bsz, train_seq_len, val_bsz, val_seq_len, num_workers = args.data_dir, args.dataset, tokenizer, batch_schedule[cur_b_schedule][0], batch_schedule[cur_b_schedule][1], batch_schedule[-1][0], batch_schedule[-1][1], args.workers
 
     loaders = []
@@ -568,7 +568,7 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
         with open(data_titles, errors='ignore') as ft:
             titles = ft.readlines()
         assert len(titles) == len(abs)
-        ai_data = [('ai', t.strip(), p.strip()) for t, p in zip(titles, abs) if t.strip() != '' and p.strip() != '']
+        ai_data = [('ai', t.strip(), p.strip()) for t, p in zip(titles, titles) if t.strip() != '' and p.strip() != '']
 
         data_abs = os.path.join(data_dir, 'arxiv/computer vision_14582_15000_15_abs.txt')
         data_titles = os.path.join(data_dir, 'arxiv/computer vision_14582_15000_15_title.txt')
@@ -577,7 +577,7 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
         with open(data_titles, errors='ignore') as ft:
             titles = ft.readlines()
         assert len(titles) == len(abs)
-        cv_data = [('cv', t.strip(), p.strip()) for t, p in zip(titles, abs) if t.strip() != '' and p.strip() != '']
+        cv_data = [('cv', t.strip(), p.strip()) for t, p in zip(titles, titles) if t.strip() != '' and p.strip() != '']
 
         data_abs = os.path.join(data_dir, 'arxiv/language generation_14514_15000_15_abs.txt')
         data_titles = os.path.join(data_dir, 'arxiv/language generation_14514_15000_15_title.txt')
@@ -586,7 +586,7 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
         with open(data_titles, errors='ignore') as ft:
             titles = ft.readlines()
         assert len(titles) == len(abs)
-        lg_data = [('lg', t.strip(), p.strip()) for t, p in zip(titles, abs) if t.strip() != '' and p.strip() != '']
+        lg_data = [('lg', t.strip(), p.strip()) for t, p in zip(titles, titles) if t.strip() != '' and p.strip() != '']
 
         texts = ai_data + cv_data + lg_data
         shuffle(texts)
@@ -628,6 +628,53 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
                                            drop_last=True,
                                            num_workers=num_workers,
                                            collate_fn=test_collate_fn) if d_test else None)
+    elif dataset_name == 'amazon_positive':
+        train_collate_fn = collate_fn
+        val_collate_fn = collate_fn
+        test_collate_fn = collate_fn
+
+        domain_data = dict()
+
+        print('Loading amazon dataset...')
+        data_abs = os.path.join(data_dir, 'amazon/books_positive.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['books'] = [('bo', t.strip(), p.strip()) for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+
+        data_abs = os.path.join(data_dir, 'amazon/dvd_positive.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['dvd'] = [('dv', t.strip(), p.strip()) for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+
+        data_abs = os.path.join(data_dir, 'amazon/kitchen_positive.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['kitchen'] = [('ki', t.strip(), p.strip()) for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+
+        data_abs = os.path.join(data_dir, 'amazon/electronics_positive.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['electronics'] = [('el', t.strip(), p.strip()) for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+
+        texts = []
+        for domain in domains:
+            texts += domain_data[domain]
+
+        shuffle(texts)
+        train_text = texts[:int(len(texts) * ratio)]
+        
+        if make_train:
+            train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)
+            d_train = ArxivDataset(train_text, train_preproc)
+            print('Train dataset size', len(d_train))
+            loaders.append(data.DataLoader(d_train,
+                                           # sampler=DistributedSampler(d_train) if distributed else None,
+                                           batch_size=train_bsz,
+                                           pin_memory=True,
+                                           drop_last=True,
+                                           num_workers=num_workers,
+                                           collate_fn=train_collate_fn) if d_train else None)
+        return loaders
     elif dataset_name == 'yp':
         train_collate_fn = collate_fn
         val_collate_fn = collate_fn
