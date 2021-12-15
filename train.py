@@ -122,6 +122,20 @@ def train_step(device, model, optimizer, x_mask, x_tokens, y_mask, y_tokens, inp
     return output
 
 
+def compute_masked_loss(device, model, optimizer, x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, loss_fn, beta, model_type):
+    output = []
+    if model_type == 'ae_vae_fusion':
+
+        loss, ce_loss, kl_loss = compute_loss_ae(device, model, x_mask, x_tokens, y_mask, y_tokens, input_tokens,
+                                              target_tokens, mask, loss_fn, beta)
+        with amp.scale_loss(loss, optimizer) as scaled_loss:
+            scaled_loss.backward()
+            torch.nn.utils.clip_grad_norm_(amp.master_params(optimizer), 5.0)  # max_grad_norm=1.0
+
+    return loss
+
+
+
 def top_k_top_p_filtering(logits, top_k=100, top_p=0.95, filter_value=-float('Inf')):
     """ Filter a distribution of logits using top-k and/or nucleus (top-p) filtering
         Args:
@@ -171,6 +185,75 @@ def repeat_score(text, ngram=[3, 4, 5, 6]):
 
     scores = [max_oc / ((len(text) / ngram[idx]) + ngram[idx]) for idx, max_oc in enumerate(max_occurs)]
     return max(scores) if len(scores) >= 1 else 1.0
+
+
+
+def compute_sentence_losses(model, tokenizer, length, batch_size=None, x_mask=None, x_tokens=None, y_mask=None, y_tokens=None,
+                            temperature=1, top_k=100, top_p=0.95, device='cuda', sample=True, eos_token=None, model_type='cvae', lr=0.07, latent_epochs=25):
+            
+    
+    x_mask = x_mask.to(device)
+    x_tokens = x_tokens.to(device)
+    y_mask = y_mask.to(device)
+    y_tokens = y_tokens.to(device) # y tokens shape (1, length), e.g (1, 250)
+    print(y_tokens.shape)
+
+    loss_fn = nn.CrossEntropyLoss(reduction='none')
+
+    target_tokens = torch.squeeze(y_tokens)
+
+    for param in model.parameters():
+        param.requires_grad = False
+    
+    z = torch.randn((1, 768)).to(device)
+
+    with torch.enable_grad():
+
+        z = z.data.clone().detach().requires_grad_(True) # z dimension (1, 768)
+        z_opt = AdamW([z], lr=lr)
+        z_opt.zero_grad()
+
+        for j in range(latent_epochs):
+            sentence_loss = 0
+            
+            prev = x_tokens[:, -1].view(batch_size, -1)        
+
+            output = prev
+            probability = torch.tensor([], dtype=z.dtype, device=device)
+
+            for i, original_token in enumerate(target_tokens.view(-1,1)): #trange
+
+                if i == 0:
+                    logits, mem = model.transformer(input_ids=prev, past=None, representations=z)
+                else:
+                    logits, mem = model.transformer(input_ids=prev, past=mem, representations=z)
+
+                logits = model.lm_head(logits) # logits shape (1,1, 50257)
+
+                if model.add_softmax:
+                    logits_rep = model.lm_head_rep(z)
+                    logits = logits + logits_rep.unsqueeze(dim=1)
+
+                logits = logits[:, -1, :] / temperature
+                logits = top_k_top_p_filtering(logits, top_k, top_p)
+                probs = F.softmax(logits, dim=-1) #(1, 50257)
+
+                sentence_loss += loss_fn(probs.cpu(), original_token.cpu())
+
+            
+            sentence_loss = sentence_loss / len(target_tokens)
+            kl_loss = model.kl_loss(z.cpu(), torch.ones(768), torch.zeros(768), torch.ones(768))
+            sentence_loss += kl_loss
+            sentence_loss.backward()
+            print(f'sentence_loss epoch {j}', sentence_loss.item())
+            z_opt.step()
+            z_opt.zero_grad()
+
+    #for param in model.parameters():
+    #   param.requires_grad = True
+            
+    return sentence_loss.data#.clone().detach()
+
 
 
 def sample_sequence(model, tokenizer, length, batch_size=None, x_mask=None, x_tokens=None, y_mask=None, y_tokens=None,
@@ -427,7 +510,7 @@ def main():
 
         # val_iter = iter(val_loader); x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask = next(val_iter)
         with tqdm(total=min(len(val_loader), max_val_batches)) as pbar:
-            for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask) in enumerate(val_loader):
+            for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label) in enumerate(val_loader):
                 with torch.no_grad():
                     if args.model_type == 'cvae':
                         loss, ce_loss, kl_loss = compute_loss(device, VAE, x_mask, x_tokens, y_mask, y_tokens,
@@ -489,6 +572,60 @@ def main():
 
         VAE.train()
 
+
+    def compute_latent_losses_for_classification(test_loader, VAE):
+        VAE.eval()
+        losses = []
+        labels = []
+        args.nsamples = 1
+        args.batch_size = 1
+        args.temperature = 0.95
+        args.top_k = 100
+        args.top_p = 0.95
+
+        # test_iter = iter(test_loader); x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask = next(test_iter)
+        with tqdm(total=len(test_loader)) as pbar:
+            for i_test, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label) in enumerate(
+                    test_loader):
+
+                length = -1
+                if length == -1:
+                    length = VAE.config.n_ctx - x_tokens.size(1) - 1
+                elif length > VAE.config.n_ctx - x_tokens.size(1) - 1:
+                    raise ValueError("Can't get samples longer than window size: %s" % VAE.config.n_ctx)
+
+                eff_samples = []
+                n, l = target_tokens.size()
+                storys = [tokenizer.decode(target_tokens[i, :]) for i in range(n)]
+                storys = [s[s.find("<|endoftext|>") + len("<|endoftext|>"):] for s in storys]
+                storys_str = [s[:s.find("<|endoftext|>") + len("<|endoftext|>")] if "<|endoftext|>" in s else s for s in
+                              storys]
+
+                loss = compute_sentence_losses(model=VAE,
+                                                tokenizer=tokenizer,
+                                                length=length,
+                                                batch_size=args.batch_size,
+                                                x_mask=x_mask,
+                                                x_tokens=x_tokens,
+                                                y_mask=y_mask,
+                                                y_tokens=y_tokens,
+                                                temperature=args.temperature,
+                                                top_k=args.top_k,
+                                                top_p=args.top_p,
+                                                device=device,
+                                                eos_token=tokenizer.encoder['<|endoftext|>'],
+                                                model_type=args.model_type)
+
+                losses.append(loss)
+                labels.append(label)
+                torch.cuda.empty_cache()
+                pbar.update(1)
+
+        VAE.train()
+
+        return losses, labels
+
+
     def test_plot(test_loader, num_iters):
         VAE.eval()
 
@@ -498,7 +635,7 @@ def main():
 
         # test_iter = iter(test_loader); x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask = next(test_iter)
         with tqdm(total=len(test_loader)) as pbar:
-            for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask) in enumerate(
+            for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label) in enumerate(
                     test_loader):
                 y_mask = y_mask.to(device)
                 y_tokens = y_tokens.to(device)
@@ -617,7 +754,7 @@ def main():
 
         # test_iter = iter(test_loader); x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask = next(test_iter)
         with tqdm(total=len(test_loader)) as pbar:
-            for i_test, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask) in enumerate(
+            for i_test, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label) in enumerate(
                     test_loader):
 
                 if i_test >= 10: break
@@ -747,7 +884,7 @@ def main():
 
         # train_iter = iter(train_loader); x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask = next(train_iter)
         with tqdm(total=len(train_loader)) as pbar:
-            for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask) in enumerate(train_loader):
+            for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label) in enumerate(train_loader):
 
                 # if num_iters % args.cycle >= args.cycle - args.beta_warmup:
                 #     beta = min(1.0, beta + (1. - args.beta_0) / args.beta_warmup)

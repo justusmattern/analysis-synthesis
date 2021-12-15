@@ -54,11 +54,11 @@ class Preprocessor_base():
 
 
 def encode_tuple(tokenizer, t):
-    return tokenizer.encode(t[0]), tokenizer.encode(t[1]), tokenizer.encode(t[2])
+    return tokenizer.encode(t[0]), tokenizer.encode(t[1]), tokenizer.encode(t[2]), t[3]
 
 
 def truncate_tuple(truncator, t):
-    return truncator(t[0]), truncator(t[1]), truncator(t[2])
+    return truncator(t[0]), truncator(t[1]), truncator(t[2]), t[3]
 
 
 class Preprocessor(Preprocessor_base):
@@ -275,6 +275,7 @@ def insert_keywords(tokenizer, data_type):
         # 'prompt' in text_raw_dict --> wp dataset; 'title' in text_raw_dict --> wi dataset and other well preprocessed dataset
         summary = text_raw_dict['prompt'] if 'prompt' in text_raw_dict else text_raw_dict['title']
         story = text_raw_dict['story']
+        label = text_raw_dict['sentiment']
 
         if data_type == 't0':  # x, y, y
             if 'prompt' in text_raw_dict:
@@ -284,7 +285,7 @@ def insert_keywords(tokenizer, data_type):
                 pp = story.split('<newline><newline>')
                 story = '\n\n'.join(pp)
 
-            return summary + tokenizer.eos_token, story + tokenizer.eos_token, tokenizer.eos_token + story + tokenizer.eos_token
+            return summary + tokenizer.eos_token, story + tokenizer.eos_token, tokenizer.eos_token + story + tokenizer.eos_token, label
         elif data_type == 't1':  # x, x + y, x + y
             if 'prompt' in text_raw_dict:
                 pp = get_paragraph(story)
@@ -294,7 +295,7 @@ def insert_keywords(tokenizer, data_type):
                 story = '\n\n'.join(pp)
 
             summary_story = summary + tokenizer.eos_token + story + tokenizer.eos_token
-            return summary + tokenizer.eos_token, summary_story, tokenizer.eos_token + summary_story
+            return summary + tokenizer.eos_token, summary_story, tokenizer.eos_token + summary_story, label
         elif data_type == 't2':  # x, x + o + y, x + o + y, append
             if 'title' in text_raw_dict:
                 pp = story.split('<newline><newline>')
@@ -308,7 +309,7 @@ def insert_keywords(tokenizer, data_type):
             keys = [extract_keywords(text, r) for text in pp]
             keys_str = [tokenizer.cls_token + tokenizer.sep_token.join(key) + tokenizer.mask_token for key in keys]
             story_appended = summary + ''.join(keys_str) + tokenizer.eos_token + '\n\n'.join(pp)
-            return summary + tokenizer.eos_token, story_appended + tokenizer.eos_token, tokenizer.eos_token + story_appended + tokenizer.eos_token
+            return summary + tokenizer.eos_token, story_appended + tokenizer.eos_token, tokenizer.eos_token + story_appended + tokenizer.eos_token, label
         elif data_type == 't3':  # x, x + o + y, x + o + y, insert
             if 'title' in text_raw_dict:
                 pp = story.split('<newline><newline>')
@@ -639,22 +640,22 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
         data_abs = os.path.join(data_dir, 'amazon/books_positive.txt')
         with open(data_abs, errors='ignore') as fp:
             abs = fp.readlines()
-        domain_data['books'] = [('bo', t.strip(), p.strip()) for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+        domain_data['books'] = [('bo', t.strip(), p.strip(), 'positive') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
 
         data_abs = os.path.join(data_dir, 'amazon/dvd_positive.txt')
         with open(data_abs, errors='ignore') as fp:
             abs = fp.readlines()
-        domain_data['dvd'] = [('dv', t.strip(), p.strip()) for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+        domain_data['dvd'] = [('dv', t.strip(), p.strip(), 'positive') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
 
         data_abs = os.path.join(data_dir, 'amazon/kitchen_positive.txt')
         with open(data_abs, errors='ignore') as fp:
             abs = fp.readlines()
-        domain_data['kitchen'] = [('ki', t.strip(), p.strip()) for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+        domain_data['kitchen'] = [('ki', t.strip(), p.strip(), 'positive') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
 
         data_abs = os.path.join(data_dir, 'amazon/electronics_positive.txt')
         with open(data_abs, errors='ignore') as fp:
             abs = fp.readlines()
-        domain_data['electronics'] = [('el', t.strip(), p.strip()) for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+        domain_data['electronics'] = [('el', t.strip(), p.strip(), 'positive') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
 
         texts = []
         for domain in domains:
@@ -674,7 +675,125 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
                                            drop_last=True,
                                            num_workers=num_workers,
                                            collate_fn=train_collate_fn) if d_train else None)
+
         return loaders
+
+
+    elif dataset_name == 'amazon_negative':
+        train_collate_fn = collate_fn
+        val_collate_fn = collate_fn
+        test_collate_fn = collate_fn
+
+        domain_data = dict()
+
+        print('Loading amazon dataset...')
+        data_abs = os.path.join(data_dir, 'amazon/books_negative.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['books'] = [('bo', t.strip(), p.strip(), 'negative') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+
+        data_abs = os.path.join(data_dir, 'amazon/dvd_negative.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['dvd'] = [('dv', t.strip(), p.strip(), 'negative') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+
+        data_abs = os.path.join(data_dir, 'amazon/kitchen_negative.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['kitchen'] = [('ki', t.strip(), p.strip(), 'negative') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+
+        data_abs = os.path.join(data_dir, 'amazon/electronics_negative.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['electronics'] = [('el', t.strip(), p.strip(), 'negative') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+
+        texts = []
+        for domain in domains:
+            texts += domain_data[domain]
+
+        shuffle(texts)
+        train_text = texts[:int(len(texts) * ratio)]
+        
+        if make_train:
+            train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)
+            d_train = ArxivDataset(train_text, train_preproc)
+            print('Train dataset size', len(d_train))
+            loaders.append(data.DataLoader(d_train,
+                                           # sampler=DistributedSampler(d_train) if distributed else None,
+                                           batch_size=train_bsz,
+                                           pin_memory=True,
+                                           drop_last=True,
+                                           num_workers=num_workers,
+                                           collate_fn=train_collate_fn) if d_train else None)
+                                           
+        return loaders
+
+
+    elif dataset_name == 'amazon_both':
+        train_collate_fn = collate_fn
+        val_collate_fn = collate_fn
+        test_collate_fn = collate_fn
+
+        domain_data = dict()
+
+        print('Loading amazon dataset...')
+        data_abs = os.path.join(data_dir, 'amazon/books_negative.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['books'] = [('bo', t.strip(), p.strip(), 'negative') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+        data_abs = os.path.join(data_dir, 'amazon/books_positive.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['books'] += [('bo', t.strip(), p.strip(), 'positive') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+
+        data_abs = os.path.join(data_dir, 'amazon/dvd_negative.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['dvd'] = [('dv', t.strip(), p.strip(), 'negative') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+        data_abs = os.path.join(data_dir, 'amazon/dvd_positive.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['dvd'] += [('dv', t.strip(), p.strip(), 'positive') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+
+        data_abs = os.path.join(data_dir, 'amazon/kitchen_negative.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['kitchen'] = [('ki', t.strip(), p.strip(), 'negative') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+        data_abs = os.path.join(data_dir, 'amazon/kitchen_positive.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['kitchen'] += [('ki', t.strip(), p.strip(), 'positive') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+
+        data_abs = os.path.join(data_dir, 'amazon/electronics_negative.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['electronics'] = [('el', t.strip(), p.strip(), 'negative') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+        data_abs = os.path.join(data_dir, 'amazon/electronics_positive.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        domain_data['electronics'] += [('el', t.strip(), p.strip(), 'positive') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+
+        texts = []
+        for domain in domains:
+            texts += domain_data[domain]
+
+        shuffle(texts)
+        train_text = texts[:int(len(texts) * ratio)]
+        
+        if make_train:
+            train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)
+            d_train = ArxivDataset(train_text, train_preproc)
+            print('Train dataset size', len(d_train))
+            loaders.append(data.DataLoader(d_train,
+                                           # sampler=DistributedSampler(d_train) if distributed else None,
+                                           batch_size=train_bsz,
+                                           pin_memory=True,
+                                           drop_last=True,
+                                           num_workers=num_workers,
+                                           collate_fn=train_collate_fn) if d_train else None)
+
+
+
     elif dataset_name == 'yp':
         train_collate_fn = collate_fn
         val_collate_fn = collate_fn

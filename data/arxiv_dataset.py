@@ -34,11 +34,11 @@ class ArxivDataset(torch.utils.data.Dataset):
         if self.sort:
             return self.data[i]
         else:
-            type, title, story = self.texts[i]
+            type, title, story, label = self.texts[i]
 
             title = type + ' <sep> ' + title.strip()
             story = story.strip()
-            text_raw_dict = {'title': title, 'story': story}
+            text_raw_dict = {'title': title, 'story': story, 'sentiment': label}
 
             text = self.preprocess(text_raw_dict)
             return text
