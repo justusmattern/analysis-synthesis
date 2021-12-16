@@ -212,6 +212,7 @@ def compute_sentence_losses(model, tokenizer, length, batch_size=None, x_mask=No
 
         z = z.data.clone().detach().requires_grad_(True) # z dimension (1, 768)
         z_opt = AdamW([z], lr=lr)
+        #z, z_opt = amp.initialize([z], z_opt, opt_level='O0')
         z_opt.zero_grad()
 
         for j in range(latent_epochs):
@@ -245,8 +246,10 @@ def compute_sentence_losses(model, tokenizer, length, batch_size=None, x_mask=No
             sentence_loss = sentence_loss / len(target_tokens)
             kl_loss = model.kl_loss(z.cpu(), torch.ones(768), torch.zeros(768), torch.ones(768))
             sentence_loss += kl_loss
+            #with amp.scale_loss(sentence_loss, z_opt) as scale_loss:
+               # scale_loss.backward()
+               # print(f'sentence_loss epoch {j}', sentence_loss.item())
             sentence_loss.backward()
-            print(f'sentence_loss epoch {j}', sentence_loss.item())
             z_opt.step()
             z_opt.zero_grad()
 
@@ -482,12 +485,12 @@ def main():
     cur_b_schedule = len(batch_schedule) - 1 if args.switch_time == 0 else 0
     print('Batch schedule', batch_schedule)
     train_loader = prepare_dataset(
-        args.data_dir, 'amazon_positive', tokenizer,
+        args.data_dir, 'amazon_both', tokenizer,
         batch_schedule[cur_b_schedule][0], batch_schedule[cur_b_schedule][1],
         batch_schedule[-1][0], batch_schedule[-1][1],
         batch_schedule[-1][0], batch_schedule[-1][1],
-        make_test=True,
-        num_workers=args.workers, data_type=args.data_type
+        make_test=True,ratio=0.05,
+        num_workers=args.workers, data_type=args.data_type, domains=['dvd']
     )[0]
     test_loader = train_loader
     print('Done.')
@@ -584,11 +587,11 @@ def main():
 
 
 
-    for e in range(2,50):
+    for e in [2,5,10,18,35]:
         print(f'evaluating models for epoch {e}')
         try:
-            VAE1.load_state_dict(torch.load(os.path.join(save_folder, f'model_positive_books_epoch{e}.pt')))
-            VAE2.load_state_dict(torch.load(os.path.join(save_folder, f'model_negative_books_epoch{e}.pt')))
+            VAE1.load_state_dict(torch.load(f'./out/testvanilla/model_positive_books_epoch{e}.pt'))
+            VAE2.load_state_dict(torch.load(f'./out/testvanilla/model_negative_books_epoch{e+27}.pt'))
         except FileNotFoundError:
             print('file not existing')
             continue
@@ -597,10 +600,14 @@ def main():
         losses_neg = []
         labels = []
 
+        losses_pos, labels = compute_latent_losses_for_classification(train_loader, VAE1)
+        losses_neg, labels = compute_latent_losses_for_classification(train_loader, VAE2)
+        """
         for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label) in enumerate(train_loader):
             VAE1.eval()
             VAE2.eval()
-
+            if i %100 == 0:
+                print(i)
             loss_pos = compute_masked_loss(device, VAE1, optimizer1, x_mask, x_tokens, y_mask, y_tokens,
                                        input_tokens, target_tokens, mask, loss_fn, beta, args.model_type)
             
@@ -610,7 +617,7 @@ def main():
             losses_pos.append(loss_pos)
             losses_neg.append(loss_neg)
             labels.append(label)
-        
+        """
         evaluate_classification(losses_pos, losses_neg, labels)
 
 
