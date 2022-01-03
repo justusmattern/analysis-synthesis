@@ -401,6 +401,7 @@ def main():
     tokenizer = GPT2Tokenizer.from_pretrained('gpt2', cache_dir=cache_dir)
     # Hack to allow tokenizing longer sequences.
     tokenizer.max_len = int(1e12)
+    tokenizer.pad_token = '[PAD]'
     gpt2_model = GPT2LMHeadModel.from_pretrained('gpt2', cache_dir=cache_dir)
     print('gpt2_params:', num_params(gpt2_model))  # gpt2: 124439808
     config = GPT2Config()
@@ -460,7 +461,7 @@ def main():
     cur_b_schedule = len(batch_schedule) - 1 if args.switch_time == 0 else 0
     print('Batch schedule', batch_schedule)
     train_loader = prepare_dataset(
-        args.data_dir, 'amazon_positive', tokenizer,
+        args.data_dir, 'amazon_negative', tokenizer,
         batch_schedule[cur_b_schedule][0], batch_schedule[cur_b_schedule][1],
         batch_schedule[-1][0], batch_schedule[-1][1],
         batch_schedule[-1][0], batch_schedule[-1][1],
@@ -492,7 +493,7 @@ def main():
     logging.info("Begin training iterations")
     max_val_batches = 20000  # max num. of val batches
     logging.info("Total iteration: %d" % args.iterations)
-    e = 27  # number of epoch
+    e = 0  # number of epoch
     num_iters = 0
     optimizer.zero_grad()
     beta = args.beta_0
@@ -579,7 +580,7 @@ def main():
         losses = []
         labels = []
         args.nsamples = 1
-        args.batch_size = 1
+        args.batch_size = 32
         args.temperature = 0.95
         args.top_k = 100
         args.top_p = 0.95
@@ -871,7 +872,7 @@ def main():
     #val_step(val_loader)
     #generate(test_loader, num_iters)
     torch.save(VAE.state_dict(), os.path.join(save_folder, 'model_' + '{:07d}'.format(num_iters) + '.pt'))
-    VAE.load_state_dict(torch.load(os.path.join(save_folder, f'model_positive_books_epoch27.pt')))
+    #VAE.load_state_dict(torch.load(os.path.join(save_folder, f'model_positive_books_epoch27.pt')))
     
     while num_iters < args.iterations:
         # Run epoch
@@ -967,7 +968,7 @@ def main():
         print(f"epoch {e} overall loss:", epoch_loss)
         print(f"epoch {e} ce loss:", epoch_loss_ce)
         print(f"epoch {e} kl loss:", epoch_loss_kl)
-        torch.save(VAE.state_dict(), os.path.join(save_folder, f'model_positive_books_epoch{e}.pt'))
+        torch.save(VAE.state_dict(), os.path.join(save_folder, f'model_approved_epoch{e}.pt'))
 
     torch.save(VAE.state_dict(), os.path.join(save_folder, 'model_latest.pt'))
     print('Training complete.')

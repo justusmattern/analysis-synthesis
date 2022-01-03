@@ -3,6 +3,7 @@ from data.prompt_dataset import *
 from data.plot_dataset import *
 from data.arxiv_dataset import *
 from data.yelp_dataset import *
+from data.civilcomments_dataset import *
 import torch
 import torch.utils.data as data
 from torch.utils.data.distributed import DistributedSampler
@@ -17,6 +18,7 @@ from scipy.spatial.distance import cdist
 from bert_serving.client import BertClient
 from tqdm import trange
 from random import shuffle
+import pandas as pd
 
 
 def compose(*functions):
@@ -53,8 +55,8 @@ class Preprocessor_base():
             raise e
 
 
-def encode_tuple(tokenizer, t):
-    return tokenizer.encode(t[0]), tokenizer.encode(t[1]), tokenizer.encode(t[2]), t[3]
+def encode_tuple(tokenizer, t, seq_len):
+    return tokenizer.encode(t[0], pad_to_max_length=True, max_length = seq_len), tokenizer.encode(t[1], pad_to_max_length=True, max_length = seq_len), tokenizer.encode(t[2], pad_to_max_length=True, max_length = seq_len), t[3]
 
 
 def truncate_tuple(truncator, t):
@@ -71,7 +73,7 @@ class Preprocessor(Preprocessor_base):
     def make_fn(self):
         return compose(
             insert_keywords(self.tokenizer, self.data_type),
-            lambda input: encode_tuple(self.tokenizer, input) if isinstance(input, tuple) else [encode_tuple(self.tokenizer, inp) for inp in input],
+            lambda input: encode_tuple(self.tokenizer, input, self.seq_len) if isinstance(input, tuple) else [encode_tuple(self.tokenizer, inp, self.seq_len) for inp in input],
             lambda input: truncate_tuple(prefix_truncate(self.seq_len), input) if isinstance(input, tuple) else [truncate_tuple(prefix_truncate(self.seq_len), inp) for inp in input]
         )
 
@@ -420,6 +422,7 @@ def insert_keywords(tokenizer, data_type):
 def collate_fn(samples):
     """ Creates a batch out of samples """
     x_max_len = max(map(lambda s: len(s[0]), samples))
+    #print('x max', x_max_len)
     # Zero pad mask
     x_mask = torch.ByteTensor([[1] * len(ss[0]) + [0] * (x_max_len - len(ss[0])) for ss in samples])
     # tokenizer.convert_tokens_to_ids('<|startoftext|>') = 50257, endoftext 50256, use 50257 here causes errors!!
@@ -440,6 +443,34 @@ def collate_fn(samples):
     label = [s[3] for s in samples][0]
 
     return x_mask, x, y_mask, y, input[:, :-1], input[:, 1:].contiguous(), input_mask[:, 1:], label
+
+
+def collate_fn_civil(samples):
+    """ Creates a batch out of samples """
+    #print(samples)
+    x_max_len = max(map(lambda s: len(s[0]), samples))
+    # Zero pad mask
+    x_mask = torch.ByteTensor([[1] * len(ss[0]) + [0] * (x_max_len - len(ss[0])) for ss in samples])
+    # tokenizer.convert_tokens_to_ids('<|startoftext|>') = 50257, endoftext 50256, use 50257 here causes errors!!
+    x = torch.LongTensor([ss[0] + [50256] * (x_max_len - len(ss[0])) for ss in samples])
+
+    max_len = max(map(lambda s: len(s[1]), samples))
+    # Zero pad mask
+    y_mask = torch.ByteTensor([[1] * len(ss[1]) + [0] * (max_len - len(ss[1])) for ss in samples])
+    # tokenizer.convert_tokens_to_ids('<|startoftext|>') = 50257
+    y = torch.LongTensor([ss[1] + [50256] * (max_len - len(ss[1])) for ss in samples])
+
+    max_len = max(map(lambda s: len(s[2]), samples))
+    # Zero pad mask
+    input_mask = torch.ByteTensor([[1] * len(ip[2]) + [0] * (max_len - len(ip[2])) for ip in samples])
+    # tokenizer.convert_tokens_to_ids('<|startoftext|>') = 50257
+    input = torch.LongTensor([ip[2] + [50256] * (max_len - len(ip[2])) for ip in samples])
+
+    label = [s[3] for s in samples]
+
+    domains = torch.LongTensor([s[4] for s in samples])
+
+    return x_mask, x, y_mask, y, input[:, :-1], input[:, 1:].contiguous(), input_mask[:, 1:], label, domains
 
 
 def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len, val_bsz, val_seq_len, test_bsz=1,
@@ -642,7 +673,7 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
         data_abs = os.path.join(data_dir, 'amazon/books_positive.txt')
         with open(data_abs, errors='ignore') as fp:
             abs = fp.readlines()
-        domain_data['books'] = [('bo', t.strip(), p.strip(), 'positive') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+        domain_data['books'] = [('bo', t.strip(), p.strip(), 'positive') for t, p in zip(abs[:900], abs[:900]) if t.strip() != '' and p.strip() != '']
 
         data_abs = os.path.join(data_dir, 'amazon/dvd_positive.txt')
         with open(data_abs, errors='ignore') as fp:
@@ -692,7 +723,7 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
         data_abs = os.path.join(data_dir, 'amazon/books_negative.txt')
         with open(data_abs, errors='ignore') as fp:
             abs = fp.readlines()
-        domain_data['books'] = [('bo', t.strip(), p.strip(), 'negative') for t, p in zip(abs, abs) if t.strip() != '' and p.strip() != '']
+        domain_data['books'] = [('bo', t.strip(), p.strip(), 'negative') for t, p in zip(abs[:900], abs[:900]) if t.strip() != '' and p.strip() != '']
 
         data_abs = os.path.join(data_dir, 'amazon/dvd_negative.txt')
         with open(data_abs, errors='ignore') as fp:
@@ -834,6 +865,146 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
                                            drop_last=True,
                                            num_workers=num_workers,
                                            collate_fn=test_collate_fn) if d_test else None)
+
+
+    elif dataset_name == 'civilcomments_approved':
+        train_collate_fn = collate_fn
+        val_collate_fn = collate_fn
+        test_collate_fn = collate_fn
+
+        domain_data = dict()
+
+        print('Loading civicomments dataset...')
+
+        df = pd.read_csv('./data/civilcomments/civilcomments.csv')
+        df = df[df['rating'] == 'approved'].sample(frac=0.091)
+        train = df[df['split'] == 'train']
+        #test = df[df['split'] == 'test']
+
+        abs = train['comment_text'].to_list()
+        labels = train['rating'].to_list()
+        domains = []
+        demographics = ['male', 'female', 'LGBTQ', 'christian', 'muslim', 'other_reli', 'white', 'black']
+
+        for demo in demographics:
+            vals = []
+            for v in df[demo].to_list():
+                if v > 0.1:
+                    vals.append(1)
+                else:
+                    vals.append(0)
+            domains.append(vals)
+        
+        domains = [list(x) for x in zip(*domains)]
+
+        texts = [('ci', t.strip(), p.strip(), l, dom) for t, p, l, dom in zip(abs, abs, labels, domains) if t.strip() != '' and p.strip() != '']
+        shuffle(texts)
+
+        
+        if make_train:
+            train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)
+            d_train = CivilCommentsDataset(texts, train_preproc)
+            print('Train dataset size', len(d_train))
+            return data.DataLoader(d_train,
+                                           batch_size=train_bsz,
+                                           pin_memory=True,
+                                           drop_last=True,
+                                           num_workers=num_workers,
+                                           collate_fn=collate_fn_civil,
+                                           shuffle=False) if d_train else None
+
+    elif dataset_name == 'civilcomments_rejected':
+        train_collate_fn = collate_fn
+        val_collate_fn = collate_fn
+        test_collate_fn = collate_fn
+
+        domain_data = dict()
+
+        print('Loading civicomments dataset...')
+
+        df = pd.read_csv('./data/civilcomments/civilcomments.csv')
+        df = df[df['rating'] == 'rejected']
+        train = df[df['split'] == 'train']
+        #test = df[df['split'] == 'test']
+
+        abs = train['comment_text'].to_list()
+        labels = train['rating'].to_list()
+        domains = []
+        demographics = ['male', 'female', 'LGBTQ', 'christian', 'muslim', 'other_reli', 'white', 'black']
+
+        for demo in demographics:
+            vals = []
+            for v in df[demo].to_list():
+                if v > 0.1:
+                    vals.append(1)
+                else:
+                    vals.append(0)
+            domains.append(vals)
+        
+        domains = [list(x) for x in zip(*domains)]
+
+        texts = [('ci', t.strip(), p.strip(), l, dom) for t, p, l, dom in zip(abs, abs, labels, domains) if t.strip() != '' and p.strip() != '']
+        shuffle(texts)
+
+        
+        if make_train:
+            train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)
+            d_train = CivilCommentsDataset(texts, train_preproc)
+            print('Train dataset size', len(d_train))
+            return data.DataLoader(d_train,
+                                           batch_size=train_bsz,
+                                           pin_memory=True,
+                                           drop_last=True,
+                                           num_workers=num_workers,
+                                           collate_fn=collate_fn_civil,
+                                           shuffle=False) if d_train else None
+    
+    elif dataset_name == 'civilcomments_test':
+        train_collate_fn = collate_fn
+        val_collate_fn = collate_fn
+        test_collate_fn = collate_fn
+
+        domain_data = dict()
+
+        print('Loading civicomments dataset...')
+
+        df = pd.read_csv('./data/civilcomments/civilcomments.csv')
+        #df = df[df['rating'] == 'approved']
+        train = df[df['split'] == 'test'].sample(frac=0.0015)
+        #test = df[df['split'] == 'test']
+
+        abs = train['comment_text'].to_list()
+        labels = train['rating'].to_list()
+        domains = []
+        demographics = ['male', 'female', 'LGBTQ', 'christian', 'muslim', 'other_reli', 'white', 'black']
+
+        for demo in demographics:
+            vals = []
+            for v in df[demo].to_list():
+                if v > 0.1:
+                    vals.append(1)
+                else:
+                    vals.append(0)
+            domains.append(vals)
+        
+        domains = [list(x) for x in zip(*domains)]
+
+        texts = [('ci', t.strip(), p.strip(), l, dom) for t, p, l, dom in zip(abs, abs, labels, domains) if t.strip() != '' and p.strip() != '']
+        shuffle(texts)
+
+        
+        if make_train:
+            train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)
+            d_train = CivilCommentsDataset(texts, train_preproc)
+            print('Train dataset size', len(d_train))
+            return data.DataLoader(d_train,
+                                           batch_size=train_bsz,
+                                           pin_memory=True,
+                                           drop_last=True,
+                                           num_workers=num_workers,
+                                           collate_fn=collate_fn_civil,
+                                           shuffle=False) if d_train else None
+
     else:
         raise Exception('Invalid dataset')
 

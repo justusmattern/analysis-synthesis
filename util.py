@@ -65,4 +65,45 @@ def evaluate_classification(pos_losses, neg_losses, labels):
             predictions.append('positive')
     
     print('accuracy', accuracy_score(predictions, labels))
-    print('f1 score', f1_score(predictions, labels))
+    #print('f1 score', f1_score(predictions, labels))
+
+def evaluate_classification_civilcomments(pos_losses, neg_losses, labels, domains):
+    predictions = []
+    for p, n in zip(pos_losses, neg_losses):
+        if p > n:
+            predictions.append('approved')
+        else:
+            predictions.append('rejected')
+
+    print('accuracy sanity', accuracy_score(predictions, labels))
+
+    domain_rights = dict()
+    domain_preds = dict()
+    preds = 0
+    rights = 0
+    ratings = ['rejected', 'approved']
+    demographics = ['male', 'female', 'LGBTQ', 'christian', 'muslim', 'other_reli', 'white', 'black']
+
+    for r in ratings:
+        domain_preds[r] = dict()
+        domain_rights[r] = dict()
+        for d in demographics:
+            domain_preds[r][d] = 0
+            domain_rights[r][d] = 0
+
+    for p, l, dom in zip(predictions, labels, domains):
+        preds += 1
+        for i, d in enumerate(dom):
+            if d == 1:
+                domain_preds[l][demographics[i]] += 1
+
+        if p == l:
+            rights += 1
+            for i, d in enumerate(dom):
+                if d == 1:
+                    domain_rights[l][demographics[i]] += 1
+
+    print('accuracy', rights/preds)
+    for r in ratings:
+        for d in demographics:
+            print(f'accuracy {r} {d} {domain_rights[r][d]/domain_preds[r][d]}')
