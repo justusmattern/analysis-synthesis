@@ -346,10 +346,10 @@ def main():
     parser.add_argument('--fp16_opt_level', default='O0', type=str, required=False)
 
     # KL cost annealing, increase beta from beta_0 to 1 in beta_warmup steps
-    parser.add_argument('--beta_0', default=1.00, type=float)
-    parser.add_argument('--beta_warmup', type=int, default=50000)
+    parser.add_argument('--beta_0', default=1/50, type=float)
+    parser.add_argument('--beta_warmup', type=int, default=10000)
     # cyc_vae parameters
-    parser.add_argument('--cycle', type=int, default=101640)
+    parser.add_argument('--cycle', type=int, default=21000)
 
     parser.add_argument('--add_input', action="store_true")
     parser.add_argument('--add_attn', action="store_true")
@@ -461,13 +461,13 @@ def main():
     cur_b_schedule = len(batch_schedule) - 1 if args.switch_time == 0 else 0
     print('Batch schedule', batch_schedule)
     train_loader = prepare_dataset(
-        args.data_dir, 'civilcomments_approved', tokenizer,
+        args.data_dir, 'mr_pos', tokenizer,
         batch_schedule[cur_b_schedule][0], batch_schedule[cur_b_schedule][1],
         batch_schedule[-1][0], batch_schedule[-1][1],
         batch_schedule[-1][0], batch_schedule[-1][1],
         make_test=True,
         num_workers=args.workers, data_type=args.data_type
-    )
+    )[0]
     test_loader = train_loader
     print('Done.')
 
@@ -887,11 +887,11 @@ def main():
 
         # train_iter = iter(train_loader); x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask = next(train_iter)
         with tqdm(total=len(train_loader)) as pbar:
-            for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label, domains) in enumerate(train_loader):
+            for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label) in enumerate(train_loader):
                 #print('domains', domains)
                 #print('dom shape', domains.shape)
-                # if num_iters % args.cycle >= args.cycle - args.beta_warmup:
-                #     beta = min(1.0, beta + (1. - args.beta_0) / args.beta_warmup)
+                if num_iters % args.cycle >= args.cycle - args.beta_warmup:
+                    beta = min(1.0, beta + (1. - args.beta_0) / args.beta_warmup)
 
                 if not tuning_all and num_iters >= tuning_all_after_iters:
                     for name, parameter in VAE.named_parameters():
