@@ -1,0 +1,1978 @@
+2022-01-18 15:17:47.336085: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:17:47.336151: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch1.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.94it/s]  8%|▊         | 2/24 [00:00<00:09,  2.34it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.55it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.63it/s] 21%|██        | 5/24 [00:01<00:07,  2.70it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.72it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.76it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.76it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.78it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.78it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.78it/s] 50%|█████     | 12/24 [00:04<00:04,  2.80it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.78it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.80it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.79it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.79it/s] 71%|███████   | 17/24 [00:06<00:02,  2.80it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.80it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.81it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.80it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.81it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.79it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.80it/s]100%|██████████| 24/24 [00:08<00:00,  2.79it/s]100%|██████████| 24/24 [00:08<00:00,  2.73it/s]
+signle loss tensor(8.2936, device='cuda:3')
+rec loss 0.879237949848175
+signle loss tensor(9.6184, device='cuda:3')
+rec loss 2.3100881576538086
+signle loss tensor(9.5149, device='cuda:3')
+rec loss 2.167013168334961
+signle loss tensor(8.9919, device='cuda:3')
+rec loss 1.6378387212753296
+signle loss tensor(8.3107, device='cuda:3')
+rec loss 0.9105812311172485
+signle loss tensor(9.6155, device='cuda:3')
+rec loss 2.2907164096832275
+signle loss tensor(8.9895, device='cuda:3')
+rec loss 1.6262309551239014
+signle loss tensor(8.7036, device='cuda:3')
+rec loss 1.3390781879425049
+signle loss tensor(9.0742, device='cuda:3')
+rec loss 1.7351921796798706
+signle loss tensor(8.8250, device='cuda:3')
+rec loss 1.4609075784683228
+signle loss tensor(10.3326, device='cuda:3')
+rec loss 3.019958734512329
+signle loss tensor(11.0911, device='cuda:3')
+rec loss 3.7934820652008057
+signle loss tensor(8.8247, device='cuda:3')
+rec loss 1.4375885725021362
+signle loss tensor(8.2266, device='cuda:3')
+rec loss 0.8198719620704651
+signle loss tensor(8.4615, device='cuda:3')
+rec loss 1.0672246217727661
+signle loss tensor(8.1556, device='cuda:3')
+rec loss 0.7466781139373779
+signle loss tensor(9.2259, device='cuda:3')
+rec loss 1.8994845151901245
+signle loss tensor(8.7365, device='cuda:3')
+rec loss 1.3562345504760742
+signle loss tensor(9.0736, device='cuda:3')
+rec loss 1.723966360092163
+signle loss tensor(9.2351, device='cuda:3')
+rec loss 1.8765716552734375
+signle loss tensor(10.2169, device='cuda:3')
+rec loss 2.924720287322998
+signle loss tensor(10.6907, device='cuda:3')
+rec loss 3.394019603729248
+signle loss tensor(8.8650, device='cuda:3')
+rec loss 1.4827791452407837
+signle loss tensor(8.2339, device='cuda:3')
+rec loss 0.8192996382713318
+Test complete with 00024 samples.
+avg loss tensor(9.1378, device='cuda:3')
+avg rec loss 1.7799485151966412
+ loss_bpe : 2.2394609070405727
+ ppl_word: 11.114
+ ppl_bpe : 9.388
+[1.77994852 8.82491725 7.35784521]
+2022-01-18 15:18:27.258883: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:18:27.258936: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch2.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.95it/s]  8%|▊         | 2/24 [00:00<00:09,  2.34it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.55it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.63it/s] 21%|██        | 5/24 [00:01<00:07,  2.71it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.73it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.76it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.77it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.78it/s] 42%|████▏     | 10/24 [00:03<00:04,  2.80it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.80it/s] 50%|█████     | 12/24 [00:04<00:04,  2.81it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.80it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.81it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.80it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.80it/s] 71%|███████   | 17/24 [00:06<00:02,  2.80it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.81it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.81it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.81it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.81it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.80it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.80it/s]100%|██████████| 24/24 [00:08<00:00,  2.74it/s]
+signle loss tensor(7.4662, device='cuda:3')
+rec loss 4.514720916748047
+signle loss tensor(7.6678, device='cuda:3')
+rec loss 4.714169979095459
+signle loss tensor(7.7316, device='cuda:3')
+rec loss 4.876891136169434
+signle loss tensor(7.4223, device='cuda:3')
+rec loss 4.474853992462158
+signle loss tensor(7.4815, device='cuda:3')
+rec loss 4.311507225036621
+signle loss tensor(7.4637, device='cuda:3')
+rec loss 4.317390441894531
+signle loss tensor(7.5309, device='cuda:3')
+rec loss 4.405771732330322
+signle loss tensor(7.7134, device='cuda:3')
+rec loss 4.83682918548584
+signle loss tensor(7.5292, device='cuda:3')
+rec loss 4.63003396987915
+signle loss tensor(7.8752, device='cuda:3')
+rec loss 5.063901424407959
+signle loss tensor(7.4947, device='cuda:3')
+rec loss 4.561183452606201
+signle loss tensor(8.2897, device='cuda:3')
+rec loss 5.586921691894531
+signle loss tensor(8.1127, device='cuda:3')
+rec loss 5.320704460144043
+signle loss tensor(7.4660, device='cuda:3')
+rec loss 4.568177223205566
+signle loss tensor(7.5503, device='cuda:3')
+rec loss 4.697056770324707
+signle loss tensor(7.3875, device='cuda:3')
+rec loss 4.269307613372803
+signle loss tensor(7.5658, device='cuda:3')
+rec loss 4.621173858642578
+signle loss tensor(7.5730, device='cuda:3')
+rec loss 4.684008598327637
+signle loss tensor(7.4094, device='cuda:3')
+rec loss 4.407683849334717
+signle loss tensor(7.5060, device='cuda:3')
+rec loss 4.631473064422607
+signle loss tensor(7.7329, device='cuda:3')
+rec loss 4.8787336349487305
+signle loss tensor(7.7346, device='cuda:3')
+rec loss 4.842868804931641
+signle loss tensor(7.4713, device='cuda:3')
+rec loss 4.293619155883789
+signle loss tensor(7.9793, device='cuda:3')
+rec loss 5.195249557495117
+Test complete with 00024 samples.
+avg loss tensor(7.6315, device='cuda:3')
+avg rec loss 4.696009655793508
+ loss_bpe : 4.879605472378614
+ ppl_word: 190.045
+ ppl_bpe : 131.579
+[  4.69600966 116.30150911   2.93544607]
+2022-01-18 15:19:07.160099: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:19:07.160152: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch3.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.96it/s]  8%|▊         | 2/24 [00:00<00:09,  2.36it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.55it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.66it/s] 21%|██        | 5/24 [00:01<00:07,  2.70it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.75it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.76it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.78it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.79it/s] 42%|████▏     | 10/24 [00:03<00:04,  2.80it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.81it/s] 50%|█████     | 12/24 [00:04<00:04,  2.81it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.81it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.81it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.81it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.80it/s] 71%|███████   | 17/24 [00:06<00:02,  2.81it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.81it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.82it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.80it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.80it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.81it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.75it/s]
+signle loss tensor(6.3807, device='cuda:3')
+rec loss 5.333059310913086
+signle loss tensor(5.8419, device='cuda:3')
+rec loss 5.12920618057251
+signle loss tensor(5.7246, device='cuda:3')
+rec loss 5.066898822784424
+signle loss tensor(7.0810, device='cuda:3')
+rec loss 5.725428581237793
+signle loss tensor(6.9484, device='cuda:3')
+rec loss 5.593811988830566
+signle loss tensor(6.4162, device='cuda:3')
+rec loss 5.298937797546387
+signle loss tensor(6.7594, device='cuda:3')
+rec loss 5.486711502075195
+signle loss tensor(7.1754, device='cuda:3')
+rec loss 5.857263565063477
+signle loss tensor(6.2327, device='cuda:3')
+rec loss 5.291991233825684
+signle loss tensor(7.2410, device='cuda:3')
+rec loss 5.958254814147949
+signle loss tensor(5.8081, device='cuda:3')
+rec loss 5.137838363647461
+signle loss tensor(6.1408, device='cuda:3')
+rec loss 5.258389949798584
+signle loss tensor(6.4717, device='cuda:3')
+rec loss 5.389496803283691
+signle loss tensor(6.5035, device='cuda:3')
+rec loss 5.361955165863037
+signle loss tensor(5.7694, device='cuda:3')
+rec loss 5.139256000518799
+signle loss tensor(6.5703, device='cuda:3')
+rec loss 5.4780402183532715
+signle loss tensor(6.1190, device='cuda:3')
+rec loss 5.326128959655762
+signle loss tensor(6.1404, device='cuda:3')
+rec loss 5.238420009613037
+signle loss tensor(6.7949, device='cuda:3')
+rec loss 5.467591762542725
+signle loss tensor(5.7561, device='cuda:3')
+rec loss 5.1053619384765625
+signle loss tensor(6.0461, device='cuda:3')
+rec loss 5.210992336273193
+signle loss tensor(5.7365, device='cuda:3')
+rec loss 5.070947170257568
+signle loss tensor(6.0166, device='cuda:3')
+rec loss 5.120285511016846
+signle loss tensor(6.2818, device='cuda:3')
+rec loss 5.254734992980957
+Test complete with 00024 samples.
+avg loss tensor(6.3315, device='cuda:3')
+avg rec loss 5.345875124136607
+ loss_bpe : 5.476194036191953
+ ppl_word: 360.973
+ ppl_bpe : 238.936
+[  5.34587512 216.20675245   0.98564213]
+2022-01-18 15:19:46.903635: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:19:46.903679: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch4.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.92it/s]  8%|▊         | 2/24 [00:00<00:09,  2.31it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.54it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.64it/s] 21%|██        | 5/24 [00:01<00:07,  2.70it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.74it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.76it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.78it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.80it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.79it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.81it/s] 50%|█████     | 12/24 [00:04<00:04,  2.80it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.82it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.81it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.81it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.80it/s] 71%|███████   | 17/24 [00:06<00:02,  2.81it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.81it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.81it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.82it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.80it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.82it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.80it/s]100%|██████████| 24/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.74it/s]
+signle loss tensor(8.4693, device='cuda:3')
+rec loss 6.43337345123291
+signle loss tensor(7.7417, device='cuda:3')
+rec loss 6.110826015472412
+signle loss tensor(8.2342, device='cuda:3')
+rec loss 6.247820854187012
+signle loss tensor(8.4434, device='cuda:3')
+rec loss 6.349634170532227
+signle loss tensor(8.6398, device='cuda:3')
+rec loss 6.641972064971924
+signle loss tensor(8.2935, device='cuda:3')
+rec loss 6.239637851715088
+signle loss tensor(7.8497, device='cuda:3')
+rec loss 6.149395942687988
+signle loss tensor(8.4140, device='cuda:3')
+rec loss 6.358678340911865
+signle loss tensor(8.2568, device='cuda:3')
+rec loss 6.268054962158203
+signle loss tensor(8.4371, device='cuda:3')
+rec loss 6.329379081726074
+signle loss tensor(8.6058, device='cuda:3')
+rec loss 6.561671733856201
+signle loss tensor(7.8422, device='cuda:3')
+rec loss 6.163276195526123
+signle loss tensor(7.8668, device='cuda:3')
+rec loss 6.180649757385254
+signle loss tensor(7.9133, device='cuda:3')
+rec loss 6.110830783843994
+signle loss tensor(8.1586, device='cuda:3')
+rec loss 6.172048568725586
+signle loss tensor(8.2464, device='cuda:3')
+rec loss 6.228017330169678
+signle loss tensor(8.5028, device='cuda:3')
+rec loss 6.4213080406188965
+signle loss tensor(8.2996, device='cuda:3')
+rec loss 6.225796699523926
+signle loss tensor(8.6015, device='cuda:3')
+rec loss 6.575750827789307
+signle loss tensor(8.2015, device='cuda:3')
+rec loss 6.301206111907959
+signle loss tensor(8.3642, device='cuda:3')
+rec loss 6.301563739776611
+signle loss tensor(8.1392, device='cuda:3')
+rec loss 6.203997611999512
+signle loss tensor(8.3795, device='cuda:3')
+rec loss 6.298303127288818
+signle loss tensor(7.8124, device='cuda:3')
+rec loss 6.129916667938232
+Test complete with 00024 samples.
+avg loss tensor(8.2381, device='cuda:3')
+avg rec loss 6.291796247164409
+ loss_bpe : 6.3685546449969985
+ ppl_word: 942.37
+ ppl_bpe : 583.214
+[  6.29179625 546.01301725   1.94625779]
+2022-01-18 15:20:26.190495: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:20:26.190542: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch5.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.94it/s]  8%|▊         | 2/24 [00:00<00:09,  2.32it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.53it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.63it/s] 21%|██        | 5/24 [00:01<00:07,  2.70it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.73it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.77it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.77it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.79it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.79it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.80it/s] 50%|█████     | 12/24 [00:04<00:04,  2.80it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.81it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.81it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.82it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.82it/s] 71%|███████   | 17/24 [00:06<00:02,  2.81it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.82it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.81it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.82it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.81it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.82it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.74it/s]
+signle loss tensor(7.3757, device='cuda:3')
+rec loss 6.53774356842041
+signle loss tensor(7.0107, device='cuda:3')
+rec loss 6.421027660369873
+signle loss tensor(7.6564, device='cuda:3')
+rec loss 6.615013122558594
+signle loss tensor(7.0347, device='cuda:3')
+rec loss 6.4140944480896
+signle loss tensor(7.8557, device='cuda:3')
+rec loss 6.8274736404418945
+signle loss tensor(7.5560, device='cuda:3')
+rec loss 6.596186637878418
+signle loss tensor(7.3158, device='cuda:3')
+rec loss 6.52153205871582
+signle loss tensor(7.6384, device='cuda:3')
+rec loss 6.712517261505127
+signle loss tensor(7.0379, device='cuda:3')
+rec loss 6.4224629402160645
+signle loss tensor(7.6452, device='cuda:3')
+rec loss 6.648112773895264
+signle loss tensor(7.4025, device='cuda:3')
+rec loss 6.6425676345825195
+signle loss tensor(7.3998, device='cuda:3')
+rec loss 6.567489147186279
+signle loss tensor(7.7911, device='cuda:3')
+rec loss 6.771279335021973
+signle loss tensor(7.0594, device='cuda:3')
+rec loss 6.437447547912598
+signle loss tensor(7.4837, device='cuda:3')
+rec loss 6.540750026702881
+signle loss tensor(7.8818, device='cuda:3')
+rec loss 6.847043514251709
+signle loss tensor(7.5433, device='cuda:3')
+rec loss 6.612819194793701
+signle loss tensor(7.0428, device='cuda:3')
+rec loss 6.4110636711120605
+signle loss tensor(7.1515, device='cuda:3')
+rec loss 6.464343547821045
+signle loss tensor(7.7420, device='cuda:3')
+rec loss 6.710684299468994
+signle loss tensor(7.3118, device='cuda:3')
+rec loss 6.468819618225098
+signle loss tensor(7.4382, device='cuda:3')
+rec loss 6.518907070159912
+signle loss tensor(7.4956, device='cuda:3')
+rec loss 6.581138610839844
+signle loss tensor(7.3736, device='cuda:3')
+rec loss 6.504802703857422
+Test complete with 00024 samples.
+avg loss tensor(7.4268, device='cuda:3')
+avg rec loss 6.574805001417796
+ loss_bpe : 6.641947851794257
+ ppl_word: 1264.447
+ ppl_bpe : 766.587
+[  6.574805   722.68158181   0.85201123]
+2022-01-18 15:21:06.336434: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:21:06.336489: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch6.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.98it/s]  8%|▊         | 2/24 [00:00<00:09,  2.38it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.56it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.65it/s] 21%|██        | 5/24 [00:01<00:07,  2.70it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.74it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.75it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.78it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.78it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.80it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.79it/s] 50%|█████     | 12/24 [00:04<00:04,  2.79it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.80it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.80it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.81it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.80it/s] 71%|███████   | 17/24 [00:06<00:02,  2.81it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.80it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.81it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.80it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.81it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.81it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.80it/s]100%|██████████| 24/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.74it/s]
+signle loss tensor(6.8769, device='cuda:3')
+rec loss 6.7301788330078125
+signle loss tensor(6.6943, device='cuda:3')
+rec loss 6.56471586227417
+signle loss tensor(6.7337, device='cuda:3')
+rec loss 6.598836898803711
+signle loss tensor(6.7314, device='cuda:3')
+rec loss 6.60611629486084
+signle loss tensor(6.7713, device='cuda:3')
+rec loss 6.639679908752441
+signle loss tensor(6.7123, device='cuda:3')
+rec loss 6.585175514221191
+signle loss tensor(6.8884, device='cuda:3')
+rec loss 6.748268127441406
+signle loss tensor(6.8457, device='cuda:3')
+rec loss 6.70904541015625
+signle loss tensor(6.7037, device='cuda:3')
+rec loss 6.574975490570068
+signle loss tensor(6.8134, device='cuda:3')
+rec loss 6.679244041442871
+signle loss tensor(6.6867, device='cuda:3')
+rec loss 6.558765411376953
+signle loss tensor(6.9744, device='cuda:3')
+rec loss 6.80475378036499
+signle loss tensor(7.2015, device='cuda:3')
+rec loss 6.960761070251465
+signle loss tensor(6.9184, device='cuda:3')
+rec loss 6.774112224578857
+signle loss tensor(6.8788, device='cuda:3')
+rec loss 6.752450942993164
+signle loss tensor(6.8204, device='cuda:3')
+rec loss 6.678049087524414
+signle loss tensor(7.1215, device='cuda:3')
+rec loss 6.899343013763428
+signle loss tensor(7.0627, device='cuda:3')
+rec loss 6.855508327484131
+signle loss tensor(6.8477, device='cuda:3')
+rec loss 6.716002941131592
+signle loss tensor(6.9868, device='cuda:3')
+rec loss 6.848299980163574
+signle loss tensor(6.9511, device='cuda:3')
+rec loss 6.771230697631836
+signle loss tensor(6.8237, device='cuda:3')
+rec loss 6.684897422790527
+signle loss tensor(7.2328, device='cuda:3')
+rec loss 6.988738536834717
+signle loss tensor(6.7395, device='cuda:3')
+rec loss 6.612181663513184
+Test complete with 00024 samples.
+avg loss tensor(6.8757, device='cuda:3')
+avg rec loss 6.722555478413899
+ loss_bpe : 6.787404136911464
+ ppl_word: 1478.534
+ ppl_bpe : 886.609
+[6.72255548e+00 8.37177423e+02 1.53148009e-01]
+2022-01-18 15:21:45.872380: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:21:45.872423: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch7.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:12,  1.91it/s]  8%|▊         | 2/24 [00:00<00:09,  2.32it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.53it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.64it/s] 21%|██        | 5/24 [00:01<00:07,  2.70it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.74it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.76it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.78it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.78it/s] 42%|████▏     | 10/24 [00:03<00:04,  2.80it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.79it/s] 50%|█████     | 12/24 [00:04<00:04,  2.80it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.79it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.80it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.81it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.81it/s] 71%|███████   | 17/24 [00:06<00:02,  2.82it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.81it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.82it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.80it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.82it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.80it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.80it/s]100%|██████████| 24/24 [00:08<00:00,  2.74it/s]
+signle loss tensor(7.1932, device='cuda:3')
+rec loss 7.1315178871154785
+signle loss tensor(6.9412, device='cuda:3')
+rec loss 6.879091262817383
+signle loss tensor(7.0167, device='cuda:3')
+rec loss 6.95421028137207
+signle loss tensor(6.9806, device='cuda:3')
+rec loss 6.918086051940918
+signle loss tensor(6.9547, device='cuda:3')
+rec loss 6.892674446105957
+signle loss tensor(7.1550, device='cuda:3')
+rec loss 7.092097282409668
+signle loss tensor(7.2225, device='cuda:3')
+rec loss 7.161110877990723
+signle loss tensor(7.0001, device='cuda:3')
+rec loss 6.937383651733398
+signle loss tensor(6.8780, device='cuda:3')
+rec loss 6.815931797027588
+signle loss tensor(6.8593, device='cuda:3')
+rec loss 6.797893047332764
+signle loss tensor(6.9547, device='cuda:3')
+rec loss 6.893526554107666
+signle loss tensor(6.8751, device='cuda:3')
+rec loss 6.813117980957031
+signle loss tensor(6.9296, device='cuda:3')
+rec loss 6.867553234100342
+signle loss tensor(6.9586, device='cuda:3')
+rec loss 6.897101402282715
+signle loss tensor(6.8695, device='cuda:3')
+rec loss 6.807612419128418
+signle loss tensor(7.0552, device='cuda:3')
+rec loss 6.994072437286377
+signle loss tensor(6.8745, device='cuda:3')
+rec loss 6.812813758850098
+signle loss tensor(7.1080, device='cuda:3')
+rec loss 7.046403408050537
+signle loss tensor(6.8660, device='cuda:3')
+rec loss 6.803542137145996
+signle loss tensor(7.1134, device='cuda:3')
+rec loss 7.0516862869262695
+signle loss tensor(7.0141, device='cuda:3')
+rec loss 6.952231407165527
+signle loss tensor(7.0392, device='cuda:3')
+rec loss 6.97682523727417
+signle loss tensor(6.8501, device='cuda:3')
+rec loss 6.787810325622559
+signle loss tensor(6.9740, device='cuda:3')
+rec loss 6.9121880531311035
+Test complete with 00024 samples.
+avg loss tensor(6.9868, device='cuda:3')
+avg rec loss 6.9248533844947815
+ loss_bpe : 6.981793665410145
+ ppl_word: 1822.277
+ ppl_bpe : 1076.848
+[6.92485338e+00 1.02322366e+03 6.19454843e-02]
+2022-01-18 15:22:25.417546: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:22:25.417597: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch8.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.94it/s]  8%|▊         | 2/24 [00:00<00:09,  2.34it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.53it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.65it/s] 21%|██        | 5/24 [00:01<00:07,  2.69it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.74it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.76it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.78it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.80it/s] 42%|████▏     | 10/24 [00:03<00:04,  2.80it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.82it/s] 50%|█████     | 12/24 [00:04<00:04,  2.80it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.81it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.80it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.81it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.80it/s] 71%|███████   | 17/24 [00:06<00:02,  2.81it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.81it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.81it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.82it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.81it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.82it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.74it/s]
+signle loss tensor(8.2799, device='cuda:3')
+rec loss 8.213996887207031
+signle loss tensor(8.3574, device='cuda:3')
+rec loss 8.297507286071777
+signle loss tensor(8.3395, device='cuda:3')
+rec loss 8.273926734924316
+signle loss tensor(8.2083, device='cuda:3')
+rec loss 8.14208698272705
+signle loss tensor(8.2569, device='cuda:3')
+rec loss 8.1915283203125
+signle loss tensor(8.2172, device='cuda:3')
+rec loss 8.149796485900879
+signle loss tensor(8.2525, device='cuda:3')
+rec loss 8.186798095703125
+signle loss tensor(8.3419, device='cuda:3')
+rec loss 8.277996063232422
+signle loss tensor(8.2173, device='cuda:3')
+rec loss 8.150548934936523
+signle loss tensor(8.2363, device='cuda:3')
+rec loss 8.170263290405273
+signle loss tensor(8.2327, device='cuda:3')
+rec loss 8.1678466796875
+signle loss tensor(8.2278, device='cuda:3')
+rec loss 8.161796569824219
+signle loss tensor(8.2261, device='cuda:3')
+rec loss 8.159497261047363
+signle loss tensor(8.2622, device='cuda:3')
+rec loss 8.197120666503906
+signle loss tensor(8.2600, device='cuda:3')
+rec loss 8.197258949279785
+signle loss tensor(8.2476, device='cuda:3')
+rec loss 8.182175636291504
+signle loss tensor(8.2775, device='cuda:3')
+rec loss 8.213728904724121
+signle loss tensor(8.4598, device='cuda:3')
+rec loss 8.402480125427246
+signle loss tensor(8.2119, device='cuda:3')
+rec loss 8.143926620483398
+signle loss tensor(8.2072, device='cuda:3')
+rec loss 8.142486572265625
+signle loss tensor(8.2257, device='cuda:3')
+rec loss 8.16080379486084
+signle loss tensor(8.2757, device='cuda:3')
+rec loss 8.210460662841797
+signle loss tensor(8.3160, device='cuda:3')
+rec loss 8.254068374633789
+signle loss tensor(8.2802, device='cuda:3')
+rec loss 8.213834762573242
+Test complete with 00024 samples.
+avg loss tensor(8.2674, device='cuda:3')
+avg rec loss 8.20258061091105
+ loss_bpe : 8.232770924451874
+ ppl_word: 6995.869
+ ppl_bpe : 3762.244
+[8.20258061e+00 3.65723402e+03 6.48087263e-02]
+2022-01-18 15:23:04.947926: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:23:04.947986: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch9.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:12,  1.91it/s]  8%|▊         | 2/24 [00:00<00:09,  2.30it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.52it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.63it/s] 21%|██        | 5/24 [00:01<00:07,  2.69it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.74it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.76it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.78it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.78it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.79it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.79it/s] 50%|█████     | 12/24 [00:04<00:04,  2.81it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.80it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.81it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.81it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.81it/s] 71%|███████   | 17/24 [00:06<00:02,  2.81it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.81it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.82it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.81it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.82it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.78it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.80it/s]100%|██████████| 24/24 [00:08<00:00,  2.79it/s]100%|██████████| 24/24 [00:08<00:00,  2.73it/s]
+signle loss tensor(8.1986, device='cuda:3')
+rec loss 8.180900573730469
+signle loss tensor(8.2266, device='cuda:3')
+rec loss 8.209046363830566
+signle loss tensor(8.2343, device='cuda:3')
+rec loss 8.217667579650879
+signle loss tensor(8.2822, device='cuda:3')
+rec loss 8.264829635620117
+signle loss tensor(8.2225, device='cuda:3')
+rec loss 8.205068588256836
+signle loss tensor(8.2686, device='cuda:3')
+rec loss 8.251001358032227
+signle loss tensor(8.2178, device='cuda:3')
+rec loss 8.200511932373047
+signle loss tensor(8.2024, device='cuda:3')
+rec loss 8.184234619140625
+signle loss tensor(8.2025, device='cuda:3')
+rec loss 8.184123039245605
+signle loss tensor(8.2978, device='cuda:3')
+rec loss 8.281648635864258
+signle loss tensor(8.3450, device='cuda:3')
+rec loss 8.330116271972656
+signle loss tensor(8.2511, device='cuda:3')
+rec loss 8.233760833740234
+signle loss tensor(8.2393, device='cuda:3')
+rec loss 8.221556663513184
+signle loss tensor(8.1913, device='cuda:3')
+rec loss 8.173604965209961
+signle loss tensor(8.1732, device='cuda:3')
+rec loss 8.155811309814453
+signle loss tensor(8.1835, device='cuda:3')
+rec loss 8.16553020477295
+signle loss tensor(8.3231, device='cuda:3')
+rec loss 8.306442260742188
+signle loss tensor(8.2884, device='cuda:3')
+rec loss 8.270894050598145
+signle loss tensor(8.3163, device='cuda:3')
+rec loss 8.298898696899414
+signle loss tensor(8.1831, device='cuda:3')
+rec loss 8.165200233459473
+signle loss tensor(8.2041, device='cuda:3')
+rec loss 8.186779975891113
+signle loss tensor(8.2236, device='cuda:3')
+rec loss 8.205558776855469
+signle loss tensor(8.2639, device='cuda:3')
+rec loss 8.246994972229004
+signle loss tensor(8.3364, device='cuda:3')
+rec loss 8.32083797454834
+Test complete with 00024 samples.
+avg loss tensor(8.2448, device='cuda:3')
+avg rec loss 8.227542479832968
+ loss_bpe : 8.251552783094859
+ ppl_word: 7138.601
+ ppl_bpe : 3833.574
+[8.22754248e+00 3.74760502e+03 1.72782913e-02]
+2022-01-18 15:23:44.883211: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:23:44.883251: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch10.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:14,  1.58it/s]  8%|▊         | 2/24 [00:00<00:10,  2.13it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.40it/s] 17%|█▋        | 4/24 [00:01<00:08,  2.49it/s] 21%|██        | 5/24 [00:02<00:07,  2.58it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.65it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.69it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.72it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.74it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.77it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.78it/s] 50%|█████     | 12/24 [00:04<00:04,  2.78it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.79it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.79it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.80it/s] 67%|██████▋   | 16/24 [00:06<00:02,  2.78it/s] 71%|███████   | 17/24 [00:06<00:02,  2.80it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.80it/s] 79%|███████▉  | 19/24 [00:07<00:01,  2.80it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.80it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.79it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.80it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.79it/s]100%|██████████| 24/24 [00:08<00:00,  2.79it/s]100%|██████████| 24/24 [00:08<00:00,  2.69it/s]
+signle loss tensor(8.4710, device='cuda:3')
+rec loss 8.464652061462402
+signle loss tensor(8.4822, device='cuda:3')
+rec loss 8.475895881652832
+signle loss tensor(8.5445, device='cuda:3')
+rec loss 8.538195610046387
+signle loss tensor(8.4999, device='cuda:3')
+rec loss 8.493766784667969
+signle loss tensor(8.5120, device='cuda:3')
+rec loss 8.505630493164062
+signle loss tensor(8.5203, device='cuda:3')
+rec loss 8.514161109924316
+signle loss tensor(8.5731, device='cuda:3')
+rec loss 8.567063331604004
+signle loss tensor(8.4749, device='cuda:3')
+rec loss 8.468584060668945
+signle loss tensor(8.5061, device='cuda:3')
+rec loss 8.499845504760742
+signle loss tensor(8.3880, device='cuda:3')
+rec loss 8.381476402282715
+signle loss tensor(8.4311, device='cuda:3')
+rec loss 8.424713134765625
+signle loss tensor(8.4901, device='cuda:3')
+rec loss 8.483882904052734
+signle loss tensor(8.4375, device='cuda:3')
+rec loss 8.431008338928223
+signle loss tensor(8.4597, device='cuda:3')
+rec loss 8.453330993652344
+signle loss tensor(8.4365, device='cuda:3')
+rec loss 8.430170059204102
+signle loss tensor(8.4392, device='cuda:3')
+rec loss 8.432855606079102
+signle loss tensor(8.5495, device='cuda:3')
+rec loss 8.543505668640137
+signle loss tensor(8.4825, device='cuda:3')
+rec loss 8.476181030273438
+signle loss tensor(8.4254, device='cuda:3')
+rec loss 8.418877601623535
+signle loss tensor(8.4839, device='cuda:3')
+rec loss 8.477644920349121
+signle loss tensor(8.5869, device='cuda:3')
+rec loss 8.581058502197266
+signle loss tensor(8.4422, device='cuda:3')
+rec loss 8.435771942138672
+signle loss tensor(8.4360, device='cuda:3')
+rec loss 8.429738998413086
+signle loss tensor(8.6062, device='cuda:3')
+rec loss 8.60046100616455
+Test complete with 00024 samples.
+avg loss tensor(8.4866, device='cuda:3')
+avg rec loss 8.480352997779846
+ loss_bpe : 8.508775430243718
+ ppl_word: 9413.267
+ ppl_bpe : 4958.088
+[8.48035300e+00 4.82638343e+03 6.26015911e-03]
+2022-01-18 15:24:23.245187: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:24:23.245234: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch11.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:09,  2.41it/s]  8%|▊         | 2/24 [00:00<00:08,  2.62it/s] 12%|█▎        | 3/24 [00:01<00:07,  2.71it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.73it/s] 21%|██        | 5/24 [00:01<00:06,  2.77it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.77it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.79it/s] 33%|███▎      | 8/24 [00:02<00:05,  2.78it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.78it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.79it/s] 46%|████▌     | 11/24 [00:03<00:04,  2.79it/s] 50%|█████     | 12/24 [00:04<00:04,  2.80it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.79it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.80it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.80it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.79it/s] 71%|███████   | 17/24 [00:06<00:02,  2.80it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.79it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.81it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.78it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.79it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.79it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.79it/s]100%|██████████| 24/24 [00:08<00:00,  2.77it/s]100%|██████████| 24/24 [00:08<00:00,  2.76it/s]
+signle loss tensor(8.5142, device='cuda:3')
+rec loss 8.510457038879395
+signle loss tensor(8.5402, device='cuda:3')
+rec loss 8.536538124084473
+signle loss tensor(8.4804, device='cuda:3')
+rec loss 8.47667121887207
+signle loss tensor(8.5662, device='cuda:3')
+rec loss 8.562491416931152
+signle loss tensor(8.5780, device='cuda:3')
+rec loss 8.574356079101562
+signle loss tensor(8.5689, device='cuda:3')
+rec loss 8.565164566040039
+signle loss tensor(8.4869, device='cuda:3')
+rec loss 8.4830904006958
+signle loss tensor(8.5312, device='cuda:3')
+rec loss 8.527435302734375
+signle loss tensor(8.5376, device='cuda:3')
+rec loss 8.53386402130127
+signle loss tensor(8.6412, device='cuda:3')
+rec loss 8.637696266174316
+signle loss tensor(8.5172, device='cuda:3')
+rec loss 8.513452529907227
+signle loss tensor(8.4777, device='cuda:3')
+rec loss 8.473790168762207
+signle loss tensor(8.6065, device='cuda:3')
+rec loss 8.602900505065918
+signle loss tensor(8.4907, device='cuda:3')
+rec loss 8.486933708190918
+signle loss tensor(8.5291, device='cuda:3')
+rec loss 8.525341987609863
+signle loss tensor(8.6215, device='cuda:3')
+rec loss 8.61788272857666
+signle loss tensor(8.5686, device='cuda:3')
+rec loss 8.564889907836914
+signle loss tensor(8.4798, device='cuda:3')
+rec loss 8.476019859313965
+signle loss tensor(8.4787, device='cuda:3')
+rec loss 8.474892616271973
+signle loss tensor(8.6671, device='cuda:3')
+rec loss 8.663658142089844
+signle loss tensor(8.4858, device='cuda:3')
+rec loss 8.482017517089844
+signle loss tensor(8.5077, device='cuda:3')
+rec loss 8.503847122192383
+signle loss tensor(8.5032, device='cuda:3')
+rec loss 8.499521255493164
+signle loss tensor(8.6044, device='cuda:3')
+rec loss 8.600707054138184
+Test complete with 00024 samples.
+avg loss tensor(8.5410, device='cuda:3')
+avg rec loss 8.53723414738973
+ loss_bpe : 8.565226220767409
+ ppl_word: 10002.391
+ ppl_bpe : 5246.027
+[8.53723415e+00 5.10900826e+03 3.72071564e-03]
+2022-01-18 15:24:53.368775: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:24:53.368826: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch12.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:10,  2.19it/s]  8%|▊         | 2/24 [00:00<00:08,  2.53it/s] 12%|█▎        | 3/24 [00:01<00:07,  2.65it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.69it/s] 21%|██        | 5/24 [00:01<00:06,  2.72it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.75it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.74it/s] 33%|███▎      | 8/24 [00:02<00:05,  2.74it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.75it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.75it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.77it/s] 50%|█████     | 12/24 [00:04<00:04,  2.75it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.77it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.77it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.77it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.78it/s] 71%|███████   | 17/24 [00:06<00:02,  2.77it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.79it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.78it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.77it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.79it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.78it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.80it/s]100%|██████████| 24/24 [00:08<00:00,  2.78it/s]100%|██████████| 24/24 [00:08<00:00,  2.73it/s]
+signle loss tensor(8.7653, device='cuda:3')
+rec loss 8.76362419128418
+signle loss tensor(8.7010, device='cuda:3')
+rec loss 8.6991605758667
+signle loss tensor(8.6590, device='cuda:3')
+rec loss 8.657137870788574
+signle loss tensor(8.7627, device='cuda:3')
+rec loss 8.76099967956543
+signle loss tensor(8.7038, device='cuda:3')
+rec loss 8.701953887939453
+signle loss tensor(8.6538, device='cuda:3')
+rec loss 8.6519193649292
+signle loss tensor(8.6566, device='cuda:3')
+rec loss 8.654699325561523
+signle loss tensor(8.6338, device='cuda:3')
+rec loss 8.63188362121582
+signle loss tensor(8.7169, device='cuda:3')
+rec loss 8.715072631835938
+signle loss tensor(8.6031, device='cuda:3')
+rec loss 8.601146697998047
+signle loss tensor(8.7319, device='cuda:3')
+rec loss 8.730062484741211
+signle loss tensor(8.6706, device='cuda:3')
+rec loss 8.668801307678223
+signle loss tensor(8.6469, device='cuda:3')
+rec loss 8.644948959350586
+signle loss tensor(8.6702, device='cuda:3')
+rec loss 8.668266296386719
+signle loss tensor(8.6256, device='cuda:3')
+rec loss 8.62369155883789
+signle loss tensor(8.6378, device='cuda:3')
+rec loss 8.635939598083496
+signle loss tensor(8.6374, device='cuda:3')
+rec loss 8.635405540466309
+signle loss tensor(8.6684, device='cuda:3')
+rec loss 8.666494369506836
+signle loss tensor(8.6408, device='cuda:3')
+rec loss 8.638855934143066
+signle loss tensor(8.7473, device='cuda:3')
+rec loss 8.745542526245117
+signle loss tensor(8.6881, device='cuda:3')
+rec loss 8.686232566833496
+signle loss tensor(8.6271, device='cuda:3')
+rec loss 8.625126838684082
+signle loss tensor(8.6331, device='cuda:3')
+rec loss 8.631174087524414
+signle loss tensor(8.6765, device='cuda:3')
+rec loss 8.674647331237793
+Test complete with 00024 samples.
+avg loss tensor(8.6732, device='cuda:3')
+avg rec loss 8.671366135279337
+ loss_bpe : 8.693131704393881
+ ppl_word: 11477.25
+ ppl_bpe : 5961.824
+[8.67136614e+00 5.83924212e+03 1.87009697e-03]
+2022-01-18 15:25:28.582218: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:25:28.582260: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch13.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.98it/s]  8%|▊         | 2/24 [00:00<00:09,  2.38it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.56it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.64it/s] 21%|██        | 5/24 [00:01<00:07,  2.69it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.73it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.76it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.76it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.78it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.75it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.75it/s] 50%|█████     | 12/24 [00:04<00:04,  2.73it/s] 54%|█████▍    | 13/24 [00:04<00:04,  2.73it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.73it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.73it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.72it/s] 71%|███████   | 17/24 [00:06<00:02,  2.73it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.67it/s] 79%|███████▉  | 19/24 [00:07<00:02,  2.27it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.08it/s] 88%|████████▊ | 21/24 [00:08<00:01,  1.96it/s] 92%|█████████▏| 22/24 [00:09<00:01,  1.90it/s] 96%|█████████▌| 23/24 [00:09<00:00,  1.83it/s]100%|██████████| 24/24 [00:10<00:00,  1.79it/s]100%|██████████| 24/24 [00:10<00:00,  2.34it/s]
+signle loss tensor(8.7807, device='cuda:3')
+rec loss 8.778160095214844
+signle loss tensor(8.8888, device='cuda:3')
+rec loss 8.886320114135742
+signle loss tensor(8.8066, device='cuda:3')
+rec loss 8.80411434173584
+signle loss tensor(8.9083, device='cuda:3')
+rec loss 8.905990600585938
+signle loss tensor(8.8967, device='cuda:3')
+rec loss 8.894302368164062
+signle loss tensor(8.7780, device='cuda:3')
+rec loss 8.775474548339844
+signle loss tensor(8.8130, device='cuda:3')
+rec loss 8.81048583984375
+signle loss tensor(8.7857, device='cuda:3')
+rec loss 8.783113479614258
+signle loss tensor(8.8629, device='cuda:3')
+rec loss 8.86049747467041
+signle loss tensor(8.8281, device='cuda:3')
+rec loss 8.825617790222168
+signle loss tensor(8.8165, device='cuda:3')
+rec loss 8.814014434814453
+signle loss tensor(8.8416, device='cuda:3')
+rec loss 8.839146614074707
+signle loss tensor(8.7573, device='cuda:3')
+rec loss 8.754734992980957
+signle loss tensor(8.8436, device='cuda:3')
+rec loss 8.841021537780762
+signle loss tensor(8.7701, device='cuda:3')
+rec loss 8.767574310302734
+signle loss tensor(8.8165, device='cuda:3')
+rec loss 8.813956260681152
+signle loss tensor(8.8744, device='cuda:3')
+rec loss 8.871909141540527
+signle loss tensor(8.7652, device='cuda:3')
+rec loss 8.762681007385254
+signle loss tensor(8.7618, device='cuda:3')
+rec loss 8.759171485900879
+signle loss tensor(8.7953, device='cuda:3')
+rec loss 8.792797088623047
+signle loss tensor(8.7920, device='cuda:3')
+rec loss 8.789478302001953
+signle loss tensor(8.8036, device='cuda:3')
+rec loss 8.801080703735352
+signle loss tensor(8.7613, device='cuda:3')
+rec loss 8.758759498596191
+signle loss tensor(8.8063, device='cuda:3')
+rec loss 8.803739547729492
+Test complete with 00024 samples.
+avg loss tensor(8.8148, device='cuda:3')
+avg rec loss 8.81225589911143
+ loss_bpe : 8.834542077819417
+ ppl_word: 13362.227
+ ppl_bpe : 6867.408
+[8.81225590e+00 6.72263623e+03 2.51132498e-03]
+2022-01-18 15:26:05.702652: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:26:05.702700: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch14.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  2.02it/s]  8%|▊         | 2/24 [00:00<00:09,  2.41it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.59it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.67it/s] 21%|██        | 5/24 [00:01<00:06,  2.72it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.76it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.77it/s] 33%|███▎      | 8/24 [00:02<00:05,  2.78it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.78it/s] 42%|████▏     | 10/24 [00:03<00:04,  2.80it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.79it/s] 50%|█████     | 12/24 [00:04<00:04,  2.80it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.81it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.81it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.81it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.80it/s] 71%|███████   | 17/24 [00:06<00:02,  2.81it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.80it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.81it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.79it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.80it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.81it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.80it/s]100%|██████████| 24/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.75it/s]
+signle loss tensor(8.8313, device='cuda:3')
+rec loss 8.83034896850586
+signle loss tensor(8.8067, device='cuda:3')
+rec loss 8.805784225463867
+signle loss tensor(8.8554, device='cuda:3')
+rec loss 8.854496955871582
+signle loss tensor(8.8399, device='cuda:3')
+rec loss 8.839015007019043
+signle loss tensor(8.8514, device='cuda:3')
+rec loss 8.850516319274902
+signle loss tensor(8.8598, device='cuda:3')
+rec loss 8.858919143676758
+signle loss tensor(8.9560, device='cuda:3')
+rec loss 8.955179214477539
+signle loss tensor(8.8291, device='cuda:3')
+rec loss 8.828226089477539
+signle loss tensor(8.7974, device='cuda:3')
+rec loss 8.796502113342285
+signle loss tensor(8.8191, device='cuda:3')
+rec loss 8.818217277526855
+signle loss tensor(8.9561, device='cuda:3')
+rec loss 8.955265045166016
+signle loss tensor(8.8613, device='cuda:3')
+rec loss 8.860363006591797
+signle loss tensor(8.9106, device='cuda:3')
+rec loss 8.909692764282227
+signle loss tensor(8.8126, device='cuda:3')
+rec loss 8.811688423156738
+signle loss tensor(8.8795, device='cuda:3')
+rec loss 8.87861442565918
+signle loss tensor(8.8901, device='cuda:3')
+rec loss 8.88919734954834
+signle loss tensor(8.8840, device='cuda:3')
+rec loss 8.883123397827148
+signle loss tensor(8.8071, device='cuda:3')
+rec loss 8.806180953979492
+signle loss tensor(8.9410, device='cuda:3')
+rec loss 8.940123558044434
+signle loss tensor(8.8492, device='cuda:3')
+rec loss 8.848241806030273
+signle loss tensor(8.8213, device='cuda:3')
+rec loss 8.820343971252441
+signle loss tensor(8.9212, device='cuda:3')
+rec loss 8.920295715332031
+signle loss tensor(8.8659, device='cuda:3')
+rec loss 8.864978790283203
+signle loss tensor(8.8031, device='cuda:3')
+rec loss 8.80218505859375
+Test complete with 00024 samples.
+avg loss tensor(8.8604, device='cuda:3')
+avg rec loss 8.859479149182638
+ loss_bpe : 8.883985066043829
+ ppl_word: 14091.9
+ ppl_bpe : 7215.488
+[8.85947915e+00 7.04879856e+03 9.07159100e-04]
+2022-01-18 15:26:50.946250: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:26:50.946289: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch15.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.99it/s]  8%|▊         | 2/24 [00:00<00:09,  2.37it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.55it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.62it/s] 21%|██        | 5/24 [00:01<00:07,  2.67it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.71it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.74it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.73it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.76it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.75it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.76it/s] 50%|█████     | 12/24 [00:04<00:04,  2.73it/s] 54%|█████▍    | 13/24 [00:04<00:04,  2.74it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.74it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.75it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.74it/s] 71%|███████   | 17/24 [00:06<00:02,  2.76it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.76it/s] 79%|███████▉  | 19/24 [00:07<00:01,  2.77it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.77it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.77it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.78it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.77it/s]100%|██████████| 24/24 [00:08<00:00,  2.77it/s]100%|██████████| 24/24 [00:08<00:00,  2.71it/s]
+signle loss tensor(9.3623, device='cuda:3')
+rec loss 9.359113693237305
+signle loss tensor(9.3696, device='cuda:3')
+rec loss 9.366394996643066
+signle loss tensor(9.3155, device='cuda:3')
+rec loss 9.312151908874512
+signle loss tensor(9.3732, device='cuda:3')
+rec loss 9.369902610778809
+signle loss tensor(9.3538, device='cuda:3')
+rec loss 9.350491523742676
+signle loss tensor(9.4142, device='cuda:3')
+rec loss 9.411076545715332
+signle loss tensor(9.3150, device='cuda:3')
+rec loss 9.311577796936035
+signle loss tensor(9.4053, device='cuda:3')
+rec loss 9.402088165283203
+signle loss tensor(9.3402, device='cuda:3')
+rec loss 9.336906433105469
+signle loss tensor(9.4199, device='cuda:3')
+rec loss 9.416797637939453
+signle loss tensor(9.3793, device='cuda:3')
+rec loss 9.37594223022461
+signle loss tensor(9.3126, device='cuda:3')
+rec loss 9.309206008911133
+signle loss tensor(9.4019, device='cuda:3')
+rec loss 9.398569107055664
+signle loss tensor(9.3554, device='cuda:3')
+rec loss 9.352142333984375
+signle loss tensor(9.3113, device='cuda:3')
+rec loss 9.307995796203613
+signle loss tensor(9.3174, device='cuda:3')
+rec loss 9.313948631286621
+signle loss tensor(9.3659, device='cuda:3')
+rec loss 9.362649917602539
+signle loss tensor(9.3740, device='cuda:3')
+rec loss 9.370685577392578
+signle loss tensor(9.3978, device='cuda:3')
+rec loss 9.394574165344238
+signle loss tensor(9.3361, device='cuda:3')
+rec loss 9.33271598815918
+signle loss tensor(9.3338, device='cuda:3')
+rec loss 9.33043098449707
+signle loss tensor(9.3183, device='cuda:3')
+rec loss 9.31490421295166
+signle loss tensor(9.3514, device='cuda:3')
+rec loss 9.348075866699219
+signle loss tensor(9.3586, device='cuda:3')
+rec loss 9.355266571044922
+Test complete with 00024 samples.
+avg loss tensor(9.3576, device='cuda:3')
+avg rec loss 9.35431702931722
+ loss_bpe : 9.370947253783367
+ ppl_word: 23789.703
+ ppl_bpe : 11742.233
+[9.35431703e+00 1.15549822e+04 3.29595432e-03]
+2022-01-18 15:27:26.937054: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:27:26.937106: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch16.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:09,  2.41it/s]  8%|▊         | 2/24 [00:00<00:08,  2.63it/s] 12%|█▎        | 3/24 [00:01<00:07,  2.70it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.70it/s] 21%|██        | 5/24 [00:01<00:07,  2.70it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.73it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.74it/s] 33%|███▎      | 8/24 [00:02<00:05,  2.72it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.74it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.76it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.77it/s] 50%|█████     | 12/24 [00:04<00:04,  2.77it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.76it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.78it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.78it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.76it/s] 71%|███████   | 17/24 [00:06<00:02,  2.78it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.77it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.78it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.76it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.77it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.79it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.78it/s]100%|██████████| 24/24 [00:08<00:00,  2.77it/s]100%|██████████| 24/24 [00:08<00:00,  2.74it/s]
+signle loss tensor(9.3417, device='cuda:3')
+rec loss 9.340800285339355
+signle loss tensor(9.3924, device='cuda:3')
+rec loss 9.391594886779785
+signle loss tensor(9.3135, device='cuda:3')
+rec loss 9.312564849853516
+signle loss tensor(9.5179, device='cuda:3')
+rec loss 9.517054557800293
+signle loss tensor(9.3214, device='cuda:3')
+rec loss 9.320503234863281
+signle loss tensor(9.4208, device='cuda:3')
+rec loss 9.420038223266602
+signle loss tensor(9.3514, device='cuda:3')
+rec loss 9.350502967834473
+signle loss tensor(9.3104, device='cuda:3')
+rec loss 9.309556007385254
+signle loss tensor(9.3163, device='cuda:3')
+rec loss 9.315465927124023
+signle loss tensor(9.3164, device='cuda:3')
+rec loss 9.315537452697754
+signle loss tensor(9.4093, device='cuda:3')
+rec loss 9.408448219299316
+signle loss tensor(9.3261, device='cuda:3')
+rec loss 9.32520580291748
+signle loss tensor(9.3226, device='cuda:3')
+rec loss 9.321707725524902
+signle loss tensor(9.3478, device='cuda:3')
+rec loss 9.346930503845215
+signle loss tensor(9.3425, device='cuda:3')
+rec loss 9.341629028320312
+signle loss tensor(9.3887, device='cuda:3')
+rec loss 9.387887001037598
+signle loss tensor(9.3355, device='cuda:3')
+rec loss 9.33464241027832
+signle loss tensor(9.3692, device='cuda:3')
+rec loss 9.368374824523926
+signle loss tensor(9.3660, device='cuda:3')
+rec loss 9.365179061889648
+signle loss tensor(9.3510, device='cuda:3')
+rec loss 9.350174903869629
+signle loss tensor(9.4278, device='cuda:3')
+rec loss 9.427013397216797
+signle loss tensor(9.3682, device='cuda:3')
+rec loss 9.367391586303711
+signle loss tensor(9.3554, device='cuda:3')
+rec loss 9.354560852050781
+signle loss tensor(9.3303, device='cuda:3')
+rec loss 9.329371452331543
+Test complete with 00024 samples.
+avg loss tensor(9.3601, device='cuda:3')
+avg rec loss 9.35925563176473
+ loss_bpe : 9.379392304600211
+ ppl_word: 24006.73
+ ppl_bpe : 11841.816
+[9.35925563e+00 1.16188260e+04 8.57837498e-04]
+2022-01-18 15:28:01.993233: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:28:01.993284: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch17.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.99it/s]  8%|▊         | 2/24 [00:00<00:09,  2.38it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.57it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.62it/s] 21%|██        | 5/24 [00:01<00:07,  2.69it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.72it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.75it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.75it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.75it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.77it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.77it/s] 50%|█████     | 12/24 [00:04<00:04,  2.76it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.78it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.78it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.79it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.77it/s] 71%|███████   | 17/24 [00:06<00:02,  2.78it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.78it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.78it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.78it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.76it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.78it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.78it/s]100%|██████████| 24/24 [00:08<00:00,  2.77it/s]100%|██████████| 24/24 [00:08<00:00,  2.72it/s]
+signle loss tensor(9.4999, device='cuda:3')
+rec loss 9.499157905578613
+signle loss tensor(9.4457, device='cuda:3')
+rec loss 9.444971084594727
+signle loss tensor(9.4907, device='cuda:3')
+rec loss 9.49001693725586
+signle loss tensor(9.4497, device='cuda:3')
+rec loss 9.44902229309082
+signle loss tensor(9.4800, device='cuda:3')
+rec loss 9.47931957244873
+signle loss tensor(9.4529, device='cuda:3')
+rec loss 9.452168464660645
+signle loss tensor(9.4703, device='cuda:3')
+rec loss 9.469573020935059
+signle loss tensor(9.4358, device='cuda:3')
+rec loss 9.435033798217773
+signle loss tensor(9.4300, device='cuda:3')
+rec loss 9.429220199584961
+signle loss tensor(9.4580, device='cuda:3')
+rec loss 9.457277297973633
+signle loss tensor(9.4728, device='cuda:3')
+rec loss 9.47204875946045
+signle loss tensor(9.4312, device='cuda:3')
+rec loss 9.430435180664062
+signle loss tensor(9.4981, device='cuda:3')
+rec loss 9.497347831726074
+signle loss tensor(9.4315, device='cuda:3')
+rec loss 9.430804252624512
+signle loss tensor(9.5288, device='cuda:3')
+rec loss 9.528084754943848
+signle loss tensor(9.4593, device='cuda:3')
+rec loss 9.458573341369629
+signle loss tensor(9.4548, device='cuda:3')
+rec loss 9.454070091247559
+signle loss tensor(9.5413, device='cuda:3')
+rec loss 9.540611267089844
+signle loss tensor(9.4886, device='cuda:3')
+rec loss 9.487916946411133
+signle loss tensor(9.4840, device='cuda:3')
+rec loss 9.483258247375488
+signle loss tensor(9.4461, device='cuda:3')
+rec loss 9.445347785949707
+signle loss tensor(9.5202, device='cuda:3')
+rec loss 9.519476890563965
+signle loss tensor(9.5147, device='cuda:3')
+rec loss 9.513954162597656
+signle loss tensor(9.5343, device='cuda:3')
+rec loss 9.53359603881836
+Test complete with 00024 samples.
+avg loss tensor(9.4758, device='cuda:3')
+avg rec loss 9.475053588549295
+ loss_bpe : 9.492061679273382
+ ppl_word: 27098.889
+ ppl_bpe : 13254.093
+[9.47505359e+00 1.30380140e+04 7.12192307e-04]
+2022-01-18 15:28:37.807060: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:28:37.807095: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch18.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.95it/s]  8%|▊         | 2/24 [00:00<00:09,  2.34it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.55it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.64it/s] 21%|██        | 5/24 [00:01<00:07,  2.71it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.73it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.76it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.77it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.79it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.79it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.80it/s] 50%|█████     | 12/24 [00:04<00:04,  2.80it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.80it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.81it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.81it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.81it/s] 71%|███████   | 17/24 [00:06<00:02,  2.81it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.82it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.80it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.81it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.79it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.78it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.78it/s]100%|██████████| 24/24 [00:08<00:00,  2.78it/s]100%|██████████| 24/24 [00:08<00:00,  2.74it/s]
+signle loss tensor(9.4468, device='cuda:3')
+rec loss 9.446383476257324
+signle loss tensor(9.5079, device='cuda:3')
+rec loss 9.507526397705078
+signle loss tensor(9.4581, device='cuda:3')
+rec loss 9.457687377929688
+signle loss tensor(9.4294, device='cuda:3')
+rec loss 9.429036140441895
+signle loss tensor(9.5124, device='cuda:3')
+rec loss 9.512048721313477
+signle loss tensor(9.4712, device='cuda:3')
+rec loss 9.470847129821777
+signle loss tensor(9.4515, device='cuda:3')
+rec loss 9.451118469238281
+signle loss tensor(9.4056, device='cuda:3')
+rec loss 9.405234336853027
+signle loss tensor(9.4178, device='cuda:3')
+rec loss 9.417431831359863
+signle loss tensor(9.4711, device='cuda:3')
+rec loss 9.470738410949707
+signle loss tensor(9.4302, device='cuda:3')
+rec loss 9.429773330688477
+signle loss tensor(9.4357, device='cuda:3')
+rec loss 9.43532943725586
+signle loss tensor(9.4444, device='cuda:3')
+rec loss 9.444028854370117
+signle loss tensor(9.4054, device='cuda:3')
+rec loss 9.404949188232422
+signle loss tensor(9.4951, device='cuda:3')
+rec loss 9.494654655456543
+signle loss tensor(9.4037, device='cuda:3')
+rec loss 9.403267860412598
+signle loss tensor(9.4374, device='cuda:3')
+rec loss 9.436984062194824
+signle loss tensor(9.4010, device='cuda:3')
+rec loss 9.40053939819336
+signle loss tensor(9.4321, device='cuda:3')
+rec loss 9.431693077087402
+signle loss tensor(9.4492, device='cuda:3')
+rec loss 9.44879150390625
+signle loss tensor(9.3990, device='cuda:3')
+rec loss 9.398614883422852
+signle loss tensor(9.4247, device='cuda:3')
+rec loss 9.424325942993164
+signle loss tensor(9.4806, device='cuda:3')
+rec loss 9.48015308380127
+signle loss tensor(9.4320, device='cuda:3')
+rec loss 9.43162727355957
+Test complete with 00024 samples.
+avg loss tensor(9.4434, device='cuda:3')
+avg rec loss 9.443032701810202
+ loss_bpe : 9.459119100634116
+ ppl_word: 26155.724
+ ppl_bpe : 12824.582
+[9.44303270e+00 1.26264945e+04 4.06362116e-04]
+2022-01-18 15:29:26.273148: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:29:26.273195: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch19.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:12,  1.84it/s]  8%|▊         | 2/24 [00:00<00:09,  2.28it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.50it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.61it/s] 21%|██        | 5/24 [00:01<00:07,  2.68it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.73it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.75it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.78it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.78it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.79it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.79it/s] 50%|█████     | 12/24 [00:04<00:04,  2.79it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.80it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.81it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.81it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.81it/s] 71%|███████   | 17/24 [00:06<00:02,  2.81it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.80it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.82it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.80it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.81it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.80it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.80it/s]100%|██████████| 24/24 [00:08<00:00,  2.80it/s]100%|██████████| 24/24 [00:08<00:00,  2.73it/s]
+signle loss tensor(9.6266, device='cuda:3')
+rec loss 9.62517261505127
+signle loss tensor(9.6906, device='cuda:3')
+rec loss 9.689130783081055
+signle loss tensor(9.6113, device='cuda:3')
+rec loss 9.609834671020508
+signle loss tensor(9.7336, device='cuda:3')
+rec loss 9.732170104980469
+signle loss tensor(9.6316, device='cuda:3')
+rec loss 9.63010025024414
+signle loss tensor(9.6419, device='cuda:3')
+rec loss 9.64047908782959
+signle loss tensor(9.6671, device='cuda:3')
+rec loss 9.665695190429688
+signle loss tensor(9.6401, device='cuda:3')
+rec loss 9.638629913330078
+signle loss tensor(9.5712, device='cuda:3')
+rec loss 9.569768905639648
+signle loss tensor(9.5815, device='cuda:3')
+rec loss 9.580065727233887
+signle loss tensor(9.6078, device='cuda:3')
+rec loss 9.606310844421387
+signle loss tensor(9.6036, device='cuda:3')
+rec loss 9.602119445800781
+signle loss tensor(9.5760, device='cuda:3')
+rec loss 9.574493408203125
+signle loss tensor(9.6051, device='cuda:3')
+rec loss 9.603614807128906
+signle loss tensor(9.5837, device='cuda:3')
+rec loss 9.582221984863281
+signle loss tensor(9.6005, device='cuda:3')
+rec loss 9.599020957946777
+signle loss tensor(9.6155, device='cuda:3')
+rec loss 9.61401081085205
+signle loss tensor(9.5908, device='cuda:3')
+rec loss 9.589385986328125
+signle loss tensor(9.6576, device='cuda:3')
+rec loss 9.656150817871094
+signle loss tensor(9.6661, device='cuda:3')
+rec loss 9.664610862731934
+signle loss tensor(9.5732, device='cuda:3')
+rec loss 9.571746826171875
+signle loss tensor(9.5910, device='cuda:3')
+rec loss 9.589499473571777
+signle loss tensor(9.6259, device='cuda:3')
+rec loss 9.624465942382812
+signle loss tensor(9.6263, device='cuda:3')
+rec loss 9.624876976013184
+Test complete with 00024 samples.
+avg loss tensor(9.6216, device='cuda:3')
+avg rec loss 9.62014901638031
+ loss_bpe : 9.634959584170593
+ ppl_word: 31600.008
+ ppl_bpe : 15290.081
+[9.62014902e+00 1.50770175e+04 1.45381068e-03]
+2022-01-18 15:30:06.677653: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:30:06.677698: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch20.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:09,  2.41it/s]  8%|▊         | 2/24 [00:00<00:08,  2.62it/s] 12%|█▎        | 3/24 [00:01<00:07,  2.70it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.72it/s] 21%|██        | 5/24 [00:01<00:06,  2.73it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.76it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.77it/s] 33%|███▎      | 8/24 [00:02<00:05,  2.76it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.77it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.78it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.79it/s] 50%|█████     | 12/24 [00:04<00:04,  2.76it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.78it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.79it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.79it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.78it/s] 71%|███████   | 17/24 [00:06<00:02,  2.77it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.78it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.79it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.77it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.79it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.78it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.79it/s]100%|██████████| 24/24 [00:08<00:00,  2.74it/s]100%|██████████| 24/24 [00:08<00:00,  2.75it/s]
+signle loss tensor(9.8628, device='cuda:3')
+rec loss 9.861567497253418
+signle loss tensor(9.8406, device='cuda:3')
+rec loss 9.83938980102539
+signle loss tensor(9.8008, device='cuda:3')
+rec loss 9.79964828491211
+signle loss tensor(10.0708, device='cuda:3')
+rec loss 10.069557189941406
+signle loss tensor(9.7694, device='cuda:3')
+rec loss 9.768186569213867
+signle loss tensor(9.7565, device='cuda:3')
+rec loss 9.755249977111816
+signle loss tensor(9.7651, device='cuda:3')
+rec loss 9.763900756835938
+signle loss tensor(9.7778, device='cuda:3')
+rec loss 9.776591300964355
+signle loss tensor(9.7846, device='cuda:3')
+rec loss 9.783388137817383
+signle loss tensor(9.8307, device='cuda:3')
+rec loss 9.829472541809082
+signle loss tensor(9.8168, device='cuda:3')
+rec loss 9.815627098083496
+signle loss tensor(9.7949, device='cuda:3')
+rec loss 9.793745994567871
+signle loss tensor(9.7810, device='cuda:3')
+rec loss 9.779805183410645
+signle loss tensor(9.8314, device='cuda:3')
+rec loss 9.830245018005371
+signle loss tensor(9.7860, device='cuda:3')
+rec loss 9.784782409667969
+signle loss tensor(9.7662, device='cuda:3')
+rec loss 9.76498794555664
+signle loss tensor(9.7793, device='cuda:3')
+rec loss 9.778057098388672
+signle loss tensor(9.7665, device='cuda:3')
+rec loss 9.765327453613281
+signle loss tensor(9.8594, device='cuda:3')
+rec loss 9.858180046081543
+signle loss tensor(9.8167, device='cuda:3')
+rec loss 9.815491676330566
+signle loss tensor(9.8036, device='cuda:3')
+rec loss 9.80238151550293
+signle loss tensor(9.8835, device='cuda:3')
+rec loss 9.882349014282227
+signle loss tensor(9.7813, device='cuda:3')
+rec loss 9.780081748962402
+signle loss tensor(9.8186, device='cuda:3')
+rec loss 9.817418098449707
+Test complete with 00024 samples.
+avg loss tensor(9.8143, device='cuda:3')
+avg rec loss 9.813143014907837
+ loss_bpe : 9.82662834455063
+ ppl_word: 38832.89
+ ppl_bpe : 18520.404
+[9.81314301e+00 1.83110175e+04 1.19884436e-03]
+2022-01-18 15:30:36.783112: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:30:36.783164: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch21.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  2.00it/s]  8%|▊         | 2/24 [00:00<00:09,  2.41it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.58it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.65it/s] 21%|██        | 5/24 [00:01<00:07,  2.70it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.72it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.76it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.77it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.79it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.79it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.79it/s] 50%|█████     | 12/24 [00:04<00:04,  2.80it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.79it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.80it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.80it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.81it/s] 71%|███████   | 17/24 [00:06<00:02,  2.79it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.80it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.81it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.79it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.80it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.80it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.79it/s]100%|██████████| 24/24 [00:08<00:00,  2.74it/s]
+signle loss tensor(9.7611, device='cuda:3')
+rec loss 9.760793685913086
+signle loss tensor(9.6862, device='cuda:3')
+rec loss 9.685894966125488
+signle loss tensor(9.6914, device='cuda:3')
+rec loss 9.691131591796875
+signle loss tensor(9.9898, device='cuda:3')
+rec loss 9.989447593688965
+signle loss tensor(9.7110, device='cuda:3')
+rec loss 9.710683822631836
+signle loss tensor(9.7149, device='cuda:3')
+rec loss 9.714569091796875
+signle loss tensor(9.7020, device='cuda:3')
+rec loss 9.701687812805176
+signle loss tensor(9.7777, device='cuda:3')
+rec loss 9.777411460876465
+signle loss tensor(9.6792, device='cuda:3')
+rec loss 9.678921699523926
+signle loss tensor(9.6838, device='cuda:3')
+rec loss 9.683479309082031
+signle loss tensor(9.7380, device='cuda:3')
+rec loss 9.73766803741455
+signle loss tensor(9.7374, device='cuda:3')
+rec loss 9.73707103729248
+signle loss tensor(9.6972, device='cuda:3')
+rec loss 9.696881294250488
+signle loss tensor(9.7035, device='cuda:3')
+rec loss 9.70321273803711
+signle loss tensor(9.7049, device='cuda:3')
+rec loss 9.704621315002441
+signle loss tensor(9.6824, device='cuda:3')
+rec loss 9.682124137878418
+signle loss tensor(9.7436, device='cuda:3')
+rec loss 9.743334770202637
+signle loss tensor(9.6722, device='cuda:3')
+rec loss 9.671894073486328
+signle loss tensor(9.8605, device='cuda:3')
+rec loss 9.860190391540527
+signle loss tensor(9.7578, device='cuda:3')
+rec loss 9.75748062133789
+signle loss tensor(9.7070, device='cuda:3')
+rec loss 9.706653594970703
+signle loss tensor(9.7330, device='cuda:3')
+rec loss 9.732705116271973
+signle loss tensor(9.7050, device='cuda:3')
+rec loss 9.704689979553223
+signle loss tensor(9.7287, device='cuda:3')
+rec loss 9.728346824645996
+Test complete with 00024 samples.
+avg loss tensor(9.7320, device='cuda:3')
+avg rec loss 9.731703956921896
+ loss_bpe : 9.748237992178838
+ ppl_word: 35693.58
+ ppl_bpe : 17124.03
+[9.73170396e+00 1.68832182e+04 3.11379631e-04]
+2022-01-18 15:31:21.859921: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:31:21.859961: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch22.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:12,  1.84it/s]  8%|▊         | 2/24 [00:00<00:09,  2.24it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.47it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.60it/s] 21%|██        | 5/24 [00:01<00:07,  2.66it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.71it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.72it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.74it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.77it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.78it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.80it/s] 50%|█████     | 12/24 [00:04<00:04,  2.78it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.80it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.79it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.81it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.79it/s] 71%|███████   | 17/24 [00:06<00:02,  2.80it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.81it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.80it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.81it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.79it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.80it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.79it/s]100%|██████████| 24/24 [00:08<00:00,  2.79it/s]100%|██████████| 24/24 [00:08<00:00,  2.71it/s]
+signle loss tensor(9.7948, device='cuda:3')
+rec loss 9.794600486755371
+signle loss tensor(9.8096, device='cuda:3')
+rec loss 9.809331893920898
+signle loss tensor(9.7852, device='cuda:3')
+rec loss 9.784933090209961
+signle loss tensor(10.0173, device='cuda:3')
+rec loss 10.017107963562012
+signle loss tensor(9.7253, device='cuda:3')
+rec loss 9.725076675415039
+signle loss tensor(9.7473, device='cuda:3')
+rec loss 9.747122764587402
+signle loss tensor(9.7224, device='cuda:3')
+rec loss 9.72216510772705
+signle loss tensor(9.7628, device='cuda:3')
+rec loss 9.762581825256348
+signle loss tensor(9.7334, device='cuda:3')
+rec loss 9.733160972595215
+signle loss tensor(9.7601, device='cuda:3')
+rec loss 9.759878158569336
+signle loss tensor(9.7310, device='cuda:3')
+rec loss 9.730815887451172
+signle loss tensor(9.7591, device='cuda:3')
+rec loss 9.758882522583008
+signle loss tensor(9.8078, device='cuda:3')
+rec loss 9.807621002197266
+signle loss tensor(9.7881, device='cuda:3')
+rec loss 9.787839889526367
+signle loss tensor(9.7150, device='cuda:3')
+rec loss 9.714807510375977
+signle loss tensor(9.7272, device='cuda:3')
+rec loss 9.727008819580078
+signle loss tensor(9.7384, device='cuda:3')
+rec loss 9.738216400146484
+signle loss tensor(9.7681, device='cuda:3')
+rec loss 9.767919540405273
+signle loss tensor(9.7822, device='cuda:3')
+rec loss 9.78195571899414
+signle loss tensor(9.7450, device='cuda:3')
+rec loss 9.744783401489258
+signle loss tensor(9.8186, device='cuda:3')
+rec loss 9.818387985229492
+signle loss tensor(9.7298, device='cuda:3')
+rec loss 9.729535102844238
+signle loss tensor(9.7666, device='cuda:3')
+rec loss 9.76633071899414
+signle loss tensor(9.7672, device='cuda:3')
+rec loss 9.766996383666992
+Test complete with 00024 samples.
+avg loss tensor(9.7709, device='cuda:3')
+avg rec loss 9.770710825920105
+ loss_bpe : 9.783733619554608
+ ppl_word: 37082.342
+ ppl_bpe : 17742.774
+[9.77071083e+00 1.75456852e+04 2.23086526e-04]
+2022-01-18 15:32:04.700643: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:32:04.700690: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch23.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:12,  1.90it/s]  8%|▊         | 2/24 [00:00<00:09,  2.32it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.53it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.60it/s] 21%|██        | 5/24 [00:01<00:07,  2.68it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.72it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.75it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.75it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.75it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.77it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.76it/s] 50%|█████     | 12/24 [00:04<00:04,  2.76it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.78it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.78it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.80it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.76it/s] 71%|███████   | 17/24 [00:06<00:02,  2.77it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.76it/s] 79%|███████▉  | 19/24 [00:07<00:01,  2.77it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.74it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.75it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.76it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.78it/s]100%|██████████| 24/24 [00:08<00:00,  2.76it/s]100%|██████████| 24/24 [00:08<00:00,  2.70it/s]
+signle loss tensor(9.9126, device='cuda:3')
+rec loss 9.912376403808594
+signle loss tensor(9.9321, device='cuda:3')
+rec loss 9.93189525604248
+signle loss tensor(9.8646, device='cuda:3')
+rec loss 9.86439037322998
+signle loss tensor(10.1639, device='cuda:3')
+rec loss 10.163742065429688
+signle loss tensor(9.8673, device='cuda:3')
+rec loss 9.867095947265625
+signle loss tensor(9.8681, device='cuda:3')
+rec loss 9.86788272857666
+signle loss tensor(9.8969, device='cuda:3')
+rec loss 9.89671516418457
+signle loss tensor(9.8617, device='cuda:3')
+rec loss 9.861448287963867
+signle loss tensor(9.8350, device='cuda:3')
+rec loss 9.834842681884766
+signle loss tensor(9.8390, device='cuda:3')
+rec loss 9.838822364807129
+signle loss tensor(9.8436, device='cuda:3')
+rec loss 9.843389511108398
+signle loss tensor(9.9077, device='cuda:3')
+rec loss 9.90751838684082
+signle loss tensor(9.8431, device='cuda:3')
+rec loss 9.842888832092285
+signle loss tensor(9.8620, device='cuda:3')
+rec loss 9.861766815185547
+signle loss tensor(9.8412, device='cuda:3')
+rec loss 9.84095287322998
+signle loss tensor(9.8738, device='cuda:3')
+rec loss 9.8735933303833
+signle loss tensor(9.8295, device='cuda:3')
+rec loss 9.829253196716309
+signle loss tensor(9.8979, device='cuda:3')
+rec loss 9.897725105285645
+signle loss tensor(9.8984, device='cuda:3')
+rec loss 9.898162841796875
+signle loss tensor(9.8919, device='cuda:3')
+rec loss 9.891695976257324
+signle loss tensor(9.8550, device='cuda:3')
+rec loss 9.854764938354492
+signle loss tensor(9.8845, device='cuda:3')
+rec loss 9.884323120117188
+signle loss tensor(9.8831, device='cuda:3')
+rec loss 9.882933616638184
+signle loss tensor(9.8471, device='cuda:3')
+rec loss 9.84689712524414
+Test complete with 00024 samples.
+avg loss tensor(9.8833, device='cuda:3')
+avg rec loss 9.88312820593516
+ loss_bpe : 9.90489795752481
+ ppl_word: 42242.823
+ ppl_bpe : 20028.228
+[9.88312821e+00 1.96406842e+04 2.02819705e-04]
+Traceback (most recent call last):
+  File "eval_ppl.py", line 4, in <module>
+    import torch
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/torch/__init__.py", line 190, in <module>
+    from torch._C import *
+RuntimeError: KeyboardInterrupt: 
+2022-01-18 15:32:41.850634: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:32:41.850670: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch25.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:09,  2.37it/s]  8%|▊         | 2/24 [00:00<00:08,  2.59it/s] 12%|█▎        | 3/24 [00:01<00:07,  2.68it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.70it/s] 21%|██        | 5/24 [00:01<00:06,  2.74it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.75it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.76it/s] 33%|███▎      | 8/24 [00:02<00:05,  2.74it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.74it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.75it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.75it/s] 50%|█████     | 12/24 [00:04<00:04,  2.74it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.76it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.77it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.78it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.76it/s] 71%|███████   | 17/24 [00:06<00:02,  2.77it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.78it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.78it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.77it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.77it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.78it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.79it/s]100%|██████████| 24/24 [00:08<00:00,  2.77it/s]100%|██████████| 24/24 [00:08<00:00,  2.74it/s]
+signle loss tensor(10.1029, device='cuda:3')
+rec loss 10.102587699890137
+signle loss tensor(10.0836, device='cuda:3')
+rec loss 10.083284378051758
+signle loss tensor(10.0759, device='cuda:3')
+rec loss 10.07553768157959
+signle loss tensor(10.0941, device='cuda:3')
+rec loss 10.093759536743164
+signle loss tensor(10.0603, device='cuda:3')
+rec loss 10.059943199157715
+signle loss tensor(10.0440, device='cuda:3')
+rec loss 10.043688774108887
+signle loss tensor(10.0401, device='cuda:3')
+rec loss 10.03975772857666
+signle loss tensor(10.0951, device='cuda:3')
+rec loss 10.094742774963379
+signle loss tensor(10.0450, device='cuda:3')
+rec loss 10.044703483581543
+signle loss tensor(10.1032, device='cuda:3')
+rec loss 10.102883338928223
+signle loss tensor(10.0821, device='cuda:3')
+rec loss 10.081727981567383
+signle loss tensor(10.0507, device='cuda:3')
+rec loss 10.05042839050293
+signle loss tensor(10.0729, device='cuda:3')
+rec loss 10.072546005249023
+signle loss tensor(10.0590, device='cuda:3')
+rec loss 10.058662414550781
+signle loss tensor(10.0621, device='cuda:3')
+rec loss 10.061742782592773
+signle loss tensor(10.0627, device='cuda:3')
+rec loss 10.06240463256836
+signle loss tensor(10.1009, device='cuda:3')
+rec loss 10.100605964660645
+signle loss tensor(10.0305, device='cuda:3')
+rec loss 10.030207633972168
+signle loss tensor(10.0736, device='cuda:3')
+rec loss 10.073317527770996
+signle loss tensor(10.0437, device='cuda:3')
+rec loss 10.043338775634766
+signle loss tensor(10.0484, device='cuda:3')
+rec loss 10.048047065734863
+signle loss tensor(10.0674, device='cuda:3')
+rec loss 10.067076683044434
+signle loss tensor(10.1088, device='cuda:3')
+rec loss 10.108452796936035
+signle loss tensor(10.0854, device='cuda:3')
+rec loss 10.085044860839844
+Test complete with 00024 samples.
+avg loss tensor(10.0705, device='cuda:3')
+avg rec loss 10.070187171300253
+ loss_bpe : 10.079238086793481
+ ppl_word: 50953.343
+ ppl_bpe : 23842.812
+[1.00701872e+01 2.36339433e+04 3.21260343e-04]
+2022-01-18 15:33:16.915214: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:33:16.915253: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch26.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.99it/s]  8%|▊         | 2/24 [00:00<00:09,  2.36it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.54it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.60it/s] 21%|██        | 5/24 [00:01<00:07,  2.66it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.68it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.71it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.71it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.72it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.73it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.74it/s] 50%|█████     | 12/24 [00:04<00:04,  2.72it/s] 54%|█████▍    | 13/24 [00:04<00:04,  2.74it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.74it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.75it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.74it/s] 71%|███████   | 17/24 [00:06<00:02,  2.74it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.74it/s] 79%|███████▉  | 19/24 [00:07<00:01,  2.75it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.73it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.74it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.74it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.75it/s]100%|██████████| 24/24 [00:08<00:00,  2.73it/s]100%|██████████| 24/24 [00:08<00:00,  2.68it/s]
+signle loss tensor(10.1992, device='cuda:3')
+rec loss 10.198725700378418
+signle loss tensor(10.1878, device='cuda:3')
+rec loss 10.187341690063477
+signle loss tensor(10.1945, device='cuda:3')
+rec loss 10.194056510925293
+signle loss tensor(10.2388, device='cuda:3')
+rec loss 10.238397598266602
+signle loss tensor(10.1791, device='cuda:3')
+rec loss 10.178662300109863
+signle loss tensor(10.1940, device='cuda:3')
+rec loss 10.19352912902832
+signle loss tensor(10.1672, device='cuda:3')
+rec loss 10.166764259338379
+signle loss tensor(10.1692, device='cuda:3')
+rec loss 10.168754577636719
+signle loss tensor(10.2265, device='cuda:3')
+rec loss 10.226085662841797
+signle loss tensor(10.1781, device='cuda:3')
+rec loss 10.177627563476562
+signle loss tensor(10.2148, device='cuda:3')
+rec loss 10.214341163635254
+signle loss tensor(10.1918, device='cuda:3')
+rec loss 10.19137954711914
+signle loss tensor(10.1888, device='cuda:3')
+rec loss 10.188361167907715
+signle loss tensor(10.1859, device='cuda:3')
+rec loss 10.185468673706055
+signle loss tensor(10.1789, device='cuda:3')
+rec loss 10.17844009399414
+signle loss tensor(10.2038, device='cuda:3')
+rec loss 10.203398704528809
+signle loss tensor(10.2610, device='cuda:3')
+rec loss 10.260560035705566
+signle loss tensor(10.1838, device='cuda:3')
+rec loss 10.18341064453125
+signle loss tensor(10.2463, device='cuda:3')
+rec loss 10.24585247039795
+signle loss tensor(10.1653, device='cuda:3')
+rec loss 10.164856910705566
+signle loss tensor(10.1995, device='cuda:3')
+rec loss 10.199085235595703
+signle loss tensor(10.1782, device='cuda:3')
+rec loss 10.17774486541748
+signle loss tensor(10.2441, device='cuda:3')
+rec loss 10.243677139282227
+signle loss tensor(10.2180, device='cuda:3')
+rec loss 10.21760082244873
+Test complete with 00024 samples.
+avg loss tensor(10.1998, device='cuda:3')
+avg rec loss 10.199338436126709
+ loss_bpe : 10.210901128003444
+ ppl_word: 58703.166
+ ppl_bpe : 27198.065
+[1.01993384e+01 2.68947123e+04 4.35087830e-04]
+2022-01-18 15:33:53.362339: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:33:53.362378: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch27.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.99it/s]  8%|▊         | 2/24 [00:00<00:09,  2.39it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.58it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.67it/s] 21%|██        | 5/24 [00:01<00:06,  2.72it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.76it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.77it/s] 33%|███▎      | 8/24 [00:02<00:05,  2.79it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.79it/s] 42%|████▏     | 10/24 [00:03<00:04,  2.80it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.80it/s] 50%|█████     | 12/24 [00:04<00:04,  2.80it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.81it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.81it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.82it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.81it/s] 71%|███████   | 17/24 [00:06<00:02,  2.82it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.81it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.82it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.80it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.82it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.81it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.82it/s]100%|██████████| 24/24 [00:08<00:00,  2.82it/s]100%|██████████| 24/24 [00:08<00:00,  2.75it/s]
+signle loss tensor(10.1113, device='cuda:3')
+rec loss 10.111176490783691
+signle loss tensor(10.1299, device='cuda:3')
+rec loss 10.129719734191895
+signle loss tensor(10.1526, device='cuda:3')
+rec loss 10.15239143371582
+signle loss tensor(10.1676, device='cuda:3')
+rec loss 10.16739273071289
+signle loss tensor(10.1046, device='cuda:3')
+rec loss 10.104425430297852
+signle loss tensor(10.0957, device='cuda:3')
+rec loss 10.095489501953125
+signle loss tensor(10.1215, device='cuda:3')
+rec loss 10.121321678161621
+signle loss tensor(10.1040, device='cuda:3')
+rec loss 10.10383415222168
+signle loss tensor(10.1718, device='cuda:3')
+rec loss 10.17166805267334
+signle loss tensor(10.1361, device='cuda:3')
+rec loss 10.135930061340332
+signle loss tensor(10.1253, device='cuda:3')
+rec loss 10.125104904174805
+signle loss tensor(10.1197, device='cuda:3')
+rec loss 10.119573593139648
+signle loss tensor(10.1019, device='cuda:3')
+rec loss 10.101761817932129
+signle loss tensor(10.1644, device='cuda:3')
+rec loss 10.164201736450195
+signle loss tensor(10.1151, device='cuda:3')
+rec loss 10.114913940429688
+signle loss tensor(10.1360, device='cuda:3')
+rec loss 10.135878562927246
+signle loss tensor(10.1447, device='cuda:3')
+rec loss 10.144579887390137
+signle loss tensor(10.1236, device='cuda:3')
+rec loss 10.123387336730957
+signle loss tensor(10.1726, device='cuda:3')
+rec loss 10.172445297241211
+signle loss tensor(10.0920, device='cuda:3')
+rec loss 10.091882705688477
+signle loss tensor(10.1307, device='cuda:3')
+rec loss 10.130499839782715
+signle loss tensor(10.1042, device='cuda:3')
+rec loss 10.104057312011719
+signle loss tensor(10.1596, device='cuda:3')
+rec loss 10.159430503845215
+signle loss tensor(10.1213, device='cuda:3')
+rec loss 10.121113777160645
+Test complete with 00024 samples.
+avg loss tensor(10.1294, device='cuda:3')
+avg rec loss 10.129257520039877
+ loss_bpe : 10.141193076512238
+ ppl_word: 54463.645
+ ppl_bpe : 25366.713
+[1.01292575e+01 2.50731373e+04 1.67989482e-04]
+2022-01-18 15:34:39.290348: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:34:39.290393: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch28.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.98it/s]  8%|▊         | 2/24 [00:00<00:09,  2.39it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.58it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.67it/s] 21%|██        | 5/24 [00:01<00:06,  2.72it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.76it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.78it/s] 33%|███▎      | 8/24 [00:02<00:05,  2.79it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.81it/s] 42%|████▏     | 10/24 [00:03<00:04,  2.81it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.82it/s] 50%|█████     | 12/24 [00:04<00:04,  2.82it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.82it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.82it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.82it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.81it/s] 71%|███████   | 17/24 [00:06<00:02,  2.82it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.81it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.81it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.81it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.82it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.82it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.82it/s]100%|██████████| 24/24 [00:08<00:00,  2.82it/s]100%|██████████| 24/24 [00:08<00:00,  2.76it/s]
+signle loss tensor(10.2509, device='cuda:3')
+rec loss 10.25072193145752
+signle loss tensor(10.2333, device='cuda:3')
+rec loss 10.233040809631348
+signle loss tensor(10.2399, device='cuda:3')
+rec loss 10.239636421203613
+signle loss tensor(10.2602, device='cuda:3')
+rec loss 10.259971618652344
+signle loss tensor(10.2347, device='cuda:3')
+rec loss 10.234457015991211
+signle loss tensor(10.2234, device='cuda:3')
+rec loss 10.2232027053833
+signle loss tensor(10.2465, device='cuda:3')
+rec loss 10.246271133422852
+signle loss tensor(10.2072, device='cuda:3')
+rec loss 10.206957817077637
+signle loss tensor(10.2075, device='cuda:3')
+rec loss 10.207244873046875
+signle loss tensor(10.2852, device='cuda:3')
+rec loss 10.284992218017578
+signle loss tensor(10.2313, device='cuda:3')
+rec loss 10.231051445007324
+signle loss tensor(10.2327, device='cuda:3')
+rec loss 10.23244857788086
+signle loss tensor(10.2215, device='cuda:3')
+rec loss 10.22128677368164
+signle loss tensor(10.2298, device='cuda:3')
+rec loss 10.229531288146973
+signle loss tensor(10.2234, device='cuda:3')
+rec loss 10.223204612731934
+signle loss tensor(10.2790, device='cuda:3')
+rec loss 10.278801918029785
+signle loss tensor(10.2710, device='cuda:3')
+rec loss 10.270800590515137
+signle loss tensor(10.2205, device='cuda:3')
+rec loss 10.220227241516113
+signle loss tensor(10.2284, device='cuda:3')
+rec loss 10.228137969970703
+signle loss tensor(10.2160, device='cuda:3')
+rec loss 10.2157621383667
+signle loss tensor(10.2093, device='cuda:3')
+rec loss 10.209039688110352
+signle loss tensor(10.2523, device='cuda:3')
+rec loss 10.252124786376953
+signle loss tensor(10.2730, device='cuda:3')
+rec loss 10.27275562286377
+signle loss tensor(10.2160, device='cuda:3')
+rec loss 10.2157564163208
+Test complete with 00024 samples.
+avg loss tensor(10.2372, device='cuda:3')
+avg rec loss 10.236976067225138
+ loss_bpe : 10.24565365700394
+ ppl_word: 60938.469
+ ppl_bpe : 28159.883
+[1.02369761e+01 2.79236544e+04 2.24861006e-04]
+2022-01-18 15:35:25.027671: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:35:25.027715: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch29.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:12,  1.90it/s]  8%|▊         | 2/24 [00:00<00:09,  2.30it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.52it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.64it/s] 21%|██        | 5/24 [00:01<00:07,  2.68it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.73it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.75it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.77it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.79it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.79it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.81it/s] 50%|█████     | 12/24 [00:04<00:04,  2.80it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.81it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.80it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.81it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.80it/s] 71%|███████   | 17/24 [00:06<00:02,  2.81it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.81it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.81it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.82it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.82it/s] 92%|█████████▏| 22/24 [00:08<00:00,  2.82it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.82it/s]100%|██████████| 24/24 [00:08<00:00,  2.74it/s]
+signle loss tensor(10.2299, device='cuda:3')
+rec loss 10.229084968566895
+signle loss tensor(10.2509, device='cuda:3')
+rec loss 10.250082969665527
+signle loss tensor(10.2299, device='cuda:3')
+rec loss 10.229084014892578
+signle loss tensor(10.2510, device='cuda:3')
+rec loss 10.25011157989502
+signle loss tensor(10.2564, device='cuda:3')
+rec loss 10.255521774291992
+signle loss tensor(10.2384, device='cuda:3')
+rec loss 10.23751163482666
+signle loss tensor(10.2058, device='cuda:3')
+rec loss 10.204936981201172
+signle loss tensor(10.2588, device='cuda:3')
+rec loss 10.2579345703125
+signle loss tensor(10.2159, device='cuda:3')
+rec loss 10.215066909790039
+signle loss tensor(10.2433, device='cuda:3')
+rec loss 10.242485046386719
+signle loss tensor(10.2860, device='cuda:3')
+rec loss 10.285122871398926
+signle loss tensor(10.2761, device='cuda:3')
+rec loss 10.275253295898438
+signle loss tensor(10.2319, device='cuda:3')
+rec loss 10.231040954589844
+signle loss tensor(10.2183, device='cuda:3')
+rec loss 10.217499732971191
+signle loss tensor(10.2138, device='cuda:3')
+rec loss 10.212921142578125
+signle loss tensor(10.2562, device='cuda:3')
+rec loss 10.25533676147461
+signle loss tensor(10.2138, device='cuda:3')
+rec loss 10.212908744812012
+signle loss tensor(10.2232, device='cuda:3')
+rec loss 10.222333908081055
+signle loss tensor(10.2353, device='cuda:3')
+rec loss 10.234489440917969
+signle loss tensor(10.2715, device='cuda:3')
+rec loss 10.27065658569336
+signle loss tensor(10.2436, device='cuda:3')
+rec loss 10.24271011352539
+signle loss tensor(10.2455, device='cuda:3')
+rec loss 10.244609832763672
+signle loss tensor(10.3260, device='cuda:3')
+rec loss 10.325190544128418
+signle loss tensor(10.2406, device='cuda:3')
+rec loss 10.239774703979492
+Test complete with 00024 samples.
+avg loss tensor(10.2442, device='cuda:3')
+avg rec loss 10.2434028784434
+ loss_bpe : 10.255597787844367
+ ppl_word: 61593.604
+ ppl_bpe : 28441.306
+[1.02434029e+01 2.81064652e+04 8.42963656e-04]
+2022-01-18 15:36:09.688373: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 15:36:09.688427: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Namespace(add_attn=True, add_input=False, add_softmax=False, attn_proj_vary=False, batch_size=1, data_dir='data', data_type='t1', dataset='wi', fp16=False, gpu=3, learn_prior=False, model_path='./out/civilcomments_unfrozen/model_aproved_unfrozen_epoch30.pt', model_type='ae_vae_fusion', no_gpu=False, out_dir='out', seed=32, workers=1)
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Loading model weights...
+Model loaded.
+Setup data...
+Loading civicomments dataset...
+Train dataset size 24
+Done.
+  0%|          | 0/24 [00:00<?, ?it/s]  4%|▍         | 1/24 [00:00<00:11,  1.93it/s]  8%|▊         | 2/24 [00:00<00:09,  2.33it/s] 12%|█▎        | 3/24 [00:01<00:08,  2.55it/s] 17%|█▋        | 4/24 [00:01<00:07,  2.64it/s] 21%|██        | 5/24 [00:01<00:06,  2.72it/s] 25%|██▌       | 6/24 [00:02<00:06,  2.74it/s] 29%|██▉       | 7/24 [00:02<00:06,  2.78it/s] 33%|███▎      | 8/24 [00:03<00:05,  2.78it/s] 38%|███▊      | 9/24 [00:03<00:05,  2.80it/s] 42%|████▏     | 10/24 [00:03<00:05,  2.80it/s] 46%|████▌     | 11/24 [00:04<00:04,  2.81it/s] 50%|█████     | 12/24 [00:04<00:04,  2.80it/s] 54%|█████▍    | 13/24 [00:04<00:03,  2.81it/s] 58%|█████▊    | 14/24 [00:05<00:03,  2.81it/s] 62%|██████▎   | 15/24 [00:05<00:03,  2.81it/s] 67%|██████▋   | 16/24 [00:05<00:02,  2.81it/s] 71%|███████   | 17/24 [00:06<00:02,  2.81it/s] 75%|███████▌  | 18/24 [00:06<00:02,  2.82it/s] 79%|███████▉  | 19/24 [00:06<00:01,  2.82it/s] 83%|████████▎ | 20/24 [00:07<00:01,  2.83it/s] 88%|████████▊ | 21/24 [00:07<00:01,  2.81it/s] 92%|█████████▏| 22/24 [00:07<00:00,  2.82it/s] 96%|█████████▌| 23/24 [00:08<00:00,  2.81it/s]100%|██████████| 24/24 [00:08<00:00,  2.82it/s]100%|██████████| 24/24 [00:08<00:00,  2.75it/s]
+signle loss tensor(10.2145, device='cuda:3')
+rec loss 10.214376449584961
+signle loss tensor(10.2143, device='cuda:3')
+rec loss 10.214163780212402
+signle loss tensor(10.2763, device='cuda:3')
+rec loss 10.276230812072754
+signle loss tensor(10.2724, device='cuda:3')
+rec loss 10.272269248962402
+signle loss tensor(10.2256, device='cuda:3')
+rec loss 10.225483894348145
+signle loss tensor(10.2175, device='cuda:3')
+rec loss 10.217366218566895
+signle loss tensor(10.2065, device='cuda:3')
+rec loss 10.206402778625488
+signle loss tensor(10.2507, device='cuda:3')
+rec loss 10.250590324401855
+signle loss tensor(10.2540, device='cuda:3')
+rec loss 10.25385856628418
+signle loss tensor(10.2383, device='cuda:3')
+rec loss 10.238168716430664
+signle loss tensor(10.2696, device='cuda:3')
+rec loss 10.269518852233887
+signle loss tensor(10.2177, device='cuda:3')
+rec loss 10.21763801574707
+signle loss tensor(10.2079, device='cuda:3')
+rec loss 10.20776081085205
+signle loss tensor(10.2441, device='cuda:3')
+rec loss 10.243988037109375
+signle loss tensor(10.2726, device='cuda:3')
+rec loss 10.272517204284668
+signle loss tensor(10.2351, device='cuda:3')
+rec loss 10.23496150970459
+signle loss tensor(10.2096, device='cuda:3')
+rec loss 10.209449768066406
+signle loss tensor(10.2298, device='cuda:3')
+rec loss 10.229654312133789
+signle loss tensor(10.2712, device='cuda:3')
+rec loss 10.271137237548828
+signle loss tensor(10.2383, device='cuda:3')
+rec loss 10.238189697265625
+signle loss tensor(10.2344, device='cuda:3')
+rec loss 10.234267234802246
+signle loss tensor(10.2315, device='cuda:3')
+rec loss 10.231389999389648
+signle loss tensor(10.2856, device='cuda:3')
+rec loss 10.285457611083984
+signle loss tensor(10.2387, device='cuda:3')
+rec loss 10.238629341125488
+Test complete with 00024 samples.
+avg loss tensor(10.2398, device='cuda:3')
+avg rec loss 10.239727934201559
+ loss_bpe : 10.248328943104543
+ ppl_word: 61114.033
+ ppl_bpe : 28235.32
+[1.02397279e+01 2.80014253e+04 1.02863957e-04]

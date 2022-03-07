@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "train_civilcomments.py", line 2, in <module>
+    import torch
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/torch/__init__.py", line 564, in <module>
+    import torch.hub
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/torch/hub.py", line 16, in <module>
+    from tqdm.auto import tqdm  # automatically select proper tqdm submodule if available
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/tqdm/auto.py", line 29, in <module>
+    from .asyncio import tqdm as asyncio_tqdm
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/tqdm/asyncio.py", line 10, in <module>
+    import asyncio
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/asyncio/__init__.py", line 8, in <module>
+    from .base_events import *
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/asyncio/base_events.py", line 39, in <module>
+    from . import events
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/asyncio/events.py", line 787, in <module>
+    from _asyncio import (_get_running_loop, _set_running_loop,
+  File "<frozen importlib._bootstrap>", line 194, in _lock_unlock_module
+KeyboardInterrupt

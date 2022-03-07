@@ -1,0 +1,80 @@
+Traceback (most recent call last):
+  File "train.py", line 2, in <module>
+    import torch
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/torch/__init__.py", line 190, in <module>
+    from torch._C import *
+ImportError: numpy.core.multiarray failed to import
+2022-01-18 23:36:51.643918: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-01-18 23:36:51.643967: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+There are  1  available GPUs!
+Using GPU devices 0
+Current single GPU: 0
+Loading models...
+gpt2_params: 124439808
+VAE_params: 182914560
+Done.
+Setup data...
+Batch schedule [(16, 70)]
+Loading amazon dataset...
+Train dataset size 900
+Done.
+Wrapping models and optimizers...
+Selected optimization level O0:  Pure FP32 training.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Warning:  multi_tensor_applier fused unscale kernel is unavailable, possibly because apex was installed without --cuda_ext --cpp_ext. Using Python fallback.  Original ImportError was: ModuleNotFoundError("No module named 'amp_C'")
+Done.
+Begin training iterations
+Training loop. Batches: 56
+  0%|          | 0/56 [00:00<?, ?it/s]8
+8
+8
+  0%|          | 0/56 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "train.py", line 979, in <module>
+    main()
+  File "train.py", line 902, in main
+    input_tokens, target_tokens, mask, loss_fn, beta, args.model_type)
+  File "train.py", line 102, in train_step
+    target_tokens, mask, loss_fn, beta)
+  File "train.py", line 77, in compute_loss_ae
+    outputs = model(input_ids=input_tokens, attention_mask=mask, y_mask=x_mask, y_tokens=x_tokens, from_mean=False, from_prior=False)
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/apex/amp/_initialize.py", line 197, in new_fwd
+    **applier(kwargs, input_caster))
+  File "/home/zjin/users/justus_mattern/code/TransformerCVAE/model.py", line 635, in forward
+    representations=z)
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/zjin/users/justus_mattern/code/TransformerCVAE/model.py", line 509, in forward
+    hidden_states, z, layer_past=layer_past, attention_mask=attention_mask, head_mask=head_mask[i]
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/zjin/users/justus_mattern/code/TransformerCVAE/model.py", line 197, in forward
+    m = self.mlp(self.ln_2(x))
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/transformers/modeling_gpt2.py", line 214, in forward
+    h = self.act(self.c_fc(x))
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/transformers/modeling_utils.py", line 514, in forward
+    x = torch.addmm(self.bias, x.view(-1, x.size(-1)), self.weight)
+RuntimeError: CUDA out of memory. Tried to allocate 14.00 MiB (GPU 0; 11.17 GiB total capacity; 1.87 GiB already allocated; 9.50 MiB free; 1.98 GiB reserved in total by PyTorch)
