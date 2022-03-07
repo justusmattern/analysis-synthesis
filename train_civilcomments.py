@@ -70,6 +70,8 @@ def compute_loss(device, model, x_mask, x_tokens, y_mask, y_tokens, input_tokens
 def compute_loss_ae(device, model, x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, loss_fn, beta):
     input_tokens = input_tokens.to(device)
     target_tokens = target_tokens.to(device)
+    print('input tokens', input_tokens)
+    print('target tokens', target_tokens)
     mask = mask.to(device)
     x_mask = x_mask.to(device)
     x_tokens = x_tokens.to(device)
