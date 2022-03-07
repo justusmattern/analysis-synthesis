@@ -156,8 +156,7 @@ def run_model():
 
     parser.add_argument('--learn_prior', action="store_true")
 
-    args = parser.parse_args('--model-path out/wi.1.proj_vary_cyc_cvae/model_0030000.pt '
-                             '--add_input --learn_prior '.split())
+    args = parser.parse_args()
     print(args)
 
     if args.model_type == 'cvae':
@@ -240,7 +239,7 @@ def run_model():
     print('Setup data...')
     seq_len = VAE.config.n_ctx
     test_loader = prepare_dataset(
-        args.data_dir, args.dataset, tokenizer,
+        'mr_both', args.dataset, tokenizer,
         1, seq_len, 1, seq_len, args.batch_size, seq_len,
         make_train=False, make_val=False, make_test=True, data_type=args.data_type
     )[0]
