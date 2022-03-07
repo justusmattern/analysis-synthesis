@@ -625,9 +625,9 @@ class VAEModel(GPT2LMHeadModel):
             z = self.reparameterize(latent_mean, latent_logvar)
         assert not torch.isnan(z).any(), 'training get nan z'
 
-        print('input ids', input_ids)
-        print('y_tokens', y_tokens)
-        print('x_tokens', x_tokens)
+        print('input ids', input_ids[0])
+        print('y_tokens', y_tokens[0])
+        print('x_tokens', x_tokens[0])
 
         transformer_outputs = self.transformer(input_ids,
                                                past=past,
