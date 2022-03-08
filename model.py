@@ -625,10 +625,16 @@ class VAEModel(GPT2LMHeadModel):
             z = self.reparameterize(latent_mean, latent_logvar)
         assert not torch.isnan(z).any(), 'training get nan z'
 
-        print('input ids', input_ids[0])
-        print('y_tokens', y_tokens[0])
-        print('x_tokens', x_tokens[0])
+        #print('input ids', input_ids.shape)
+        #print('y_tokens', y_tokens[0])
+        #print('x_tokens', x_tokens[0])
 
+        #print('past', past.shape)
+        #print('attention_mask', attention_mask.shape)
+        #print('token_type_ids', token_type_ids.shape)
+        #print('position_ids', position_ids.shape)
+        #print('head_mask', head_mask.shape)
+        #print('inputs_embeds', inputs_embeds.shape)
         transformer_outputs = self.transformer(input_ids,
                                                past=past,
                                                attention_mask=attention_mask,
@@ -647,6 +653,6 @@ class VAEModel(GPT2LMHeadModel):
         # kl_loss
         kl_loss = self.kl_loss(posterior_mean, posterior_logvar, prior_mean, prior_logvar).unsqueeze(0)
         outputs = outputs + (kl_loss,)
-        print(outputs[0].shape)
+        #print(torch.argmax(outputs[0][0], dim = 1))
 
         return outputs  # lm_logits, presents, (all hidden_states), (attentions), (kl_loss)

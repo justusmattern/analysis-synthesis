@@ -55,8 +55,8 @@ class Preprocessor_base():
             raise e
 
 
-def encode_tuple(tokenizer, t, seq_len):
-    return tokenizer.encode(t[0], pad_to_max_length=True, max_length = seq_len), tokenizer.encode(t[1], pad_to_max_length=True, max_length = seq_len), tokenizer.encode(t[2], pad_to_max_length=True, max_length = seq_len), t[3]
+def encode_tuple(tokenizer, t):
+    return tokenizer.encode(t[0]), tokenizer.encode(t[1]), tokenizer.encode(t[2]), t[3]
 
 
 def truncate_tuple(truncator, t):
@@ -73,7 +73,7 @@ class Preprocessor(Preprocessor_base):
     def make_fn(self):
         return compose(
             insert_keywords(self.tokenizer, self.data_type),
-            lambda input: encode_tuple(self.tokenizer, input, self.seq_len) if isinstance(input, tuple) else [encode_tuple(self.tokenizer, inp, self.seq_len) for inp in input],
+            lambda input: encode_tuple(self.tokenizer, input) if isinstance(input, tuple) else [encode_tuple(self.tokenizer, inp) for inp in input],
             lambda input: truncate_tuple(prefix_truncate(self.seq_len), input) if isinstance(input, tuple) else [truncate_tuple(prefix_truncate(self.seq_len), inp) for inp in input]
         )
 
@@ -422,6 +422,10 @@ def insert_keywords(tokenizer, data_type):
 def collate_fn(samples):
     """ Creates a batch out of samples """
     x_max_len = max(map(lambda s: len(s[0]), samples))
+    #for ss in samples:
+    #    print('x_max_len', x_max_len)
+    #    print('ss[0]', ss[0])
+    #    print('x max len - len(ss[0]', x_max_len - len(ss[0]))
     #print('x max', x_max_len)
     # Zero pad mask
     x_mask = torch.ByteTensor([[1] * len(ss[0]) + [0] * (x_max_len - len(ss[0])) for ss in samples])
@@ -753,11 +757,11 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
         shuffle(test_texts)
         test_texts = random.sample(test_texts, 20)
 
-        if make_train:
-            train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)
-            d_train = ArxivDataset(test_texts, train_preproc)
-            print('Train dataset size', len(d_train))
-            loaders.append(data.DataLoader(d_train,
+        #if make_train:
+        train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)
+        d_train = ArxivDataset(test_texts, train_preproc)
+        print('Train dataset size', len(d_train))
+        loaders.append(data.DataLoader(d_train,
                                            # sampler=DistributedSampler(d_train) if distributed else None,
                                            batch_size=train_bsz,
                                            pin_memory=True,
@@ -765,7 +769,7 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
                                            num_workers=num_workers,
                                            collate_fn=train_collate_fn) if d_train else None)
 
-            return loaders
+        return loaders
 
 
 

@@ -70,8 +70,8 @@ def compute_loss(device, model, x_mask, x_tokens, y_mask, y_tokens, input_tokens
 def compute_loss_ae(device, model, x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, loss_fn, beta):
     input_tokens = input_tokens.to(device)
     target_tokens = target_tokens.to(device)
-    print('input tokens', input_tokens)
-    print('target tokens', target_tokens)
+    #print('input tokens', input_tokens)
+    #print('target tokens', target_tokens)
     mask = mask.to(device)
     x_mask = x_mask.to(device)
     x_tokens = x_tokens.to(device)
@@ -319,7 +319,7 @@ def main():
     parser.add_argument('experiment', type=str)
 
     # Default parameters are set based on single GPU training
-    parser.add_argument('--lr', type=float, default=5e-5)
+    parser.add_argument('--lr', type=float, default=1e-4)
     parser.add_argument("--seed", type=int, default=0)
 
     parser.add_argument('--data_type', type=str, default='t1', choices=['t' + str(i) for i in range(9)], help="t: type")

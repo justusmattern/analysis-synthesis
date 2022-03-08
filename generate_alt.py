@@ -91,16 +91,21 @@ def sample_sequence(model, tokenizer, length, batch_size=None, x_mask=None, x_to
         if model_type == 'cvae':
             try:
                 prior_mean, prior_logvar = model.encoder_prior(input_ids=x_tokens, attention_mask=x_mask)[:2]
+                print('mer kriegen unser posterior vom encoder')
             except:
                 prior_mean = prior_logvar = torch.zeros([batch_size, model.config.n_embd], device=device)
+                print('mer kriegen unser posterior net vom encoder')
             latent_mean, latent_logvar = prior_mean, prior_logvar
             z = model.reparameterize(latent_mean, latent_logvar)
             assert not torch.isnan(z).any(), 'training get nan z'
+
         else:
             posterior_mean, posterior_logvar = model.encoder(input_ids=x_tokens, attention_mask=x_mask)[:2]
             latent_mean, latent_logvar = posterior_mean, posterior_logvar
-            print(latent_mean.shape)
-            z =  torch.zeros([1, 768], device='cuda')
+            #print('mean', latent_mean)
+            #print('logvar', latent_logvar)
+            #z = latent_mean
+            z = torch.zeros([batch_size, model.config.n_embd], device=device)
             assert not torch.isnan(z).any(), 'training get nan z'
 
         for i in range(length): #trange
@@ -114,6 +119,7 @@ def sample_sequence(model, tokenizer, length, batch_size=None, x_mask=None, x_to
             logits = logits[:, -1, :] / temperature
             logits = top_k_top_p_filtering(logits, top_k, top_p)
             probs = F.softmax(logits, dim=-1)
+            #print('probs', probs.tolist())
             if sample:
                 next_token = torch.multinomial(probs, num_samples=1)
             else:
@@ -141,14 +147,10 @@ def run_model():
     parser.add_argument('--top_k', type=int, default=100)
     parser.add_argument('--data-dir', type=str, default='data')
     parser.add_argument('--out-dir', type=str, default='out')
-    parser.add_argument('--batch-sizes', nargs='+', type=int, default=[1],
-                        help='batch size per GPU. Lists the schedule.')
-    parser.add_argument('--seq-lens', nargs='+', type=int, default=[1024],
-                        help='seq length per sample. Lists the schedule.')
 
     parser.add_argument('--data_type', type=str, default='t1', choices=['t' + str(i) for i in range(9)], help="t: type")
     parser.add_argument('--model_type', type=str, default='cvae', choices=['cvae', 'ae_vae_fusion'])
-    parser.add_argument('--dataset', type=str, default='wi', choices=['wp', 'wi'], help="Dataset to use for training")
+    parser.add_argument('--dataset', type=str, default='wi', choices=['wp', 'wi', 'ax'], help="Dataset to use for training")
 
     # use GPU
     parser.add_argument('--gpu', default=2, type=int)
@@ -242,19 +244,12 @@ def run_model():
     print('Model loaded.')
 
     print('Setup data...')
-    batch_schedule = list(zip(map(int, args.batch_sizes), map(int, args.seq_lens)))
-    assert len(batch_schedule) <= 2, 'Currently not supporting multiple schedule'
-    cur_b_schedule = len(batch_schedule) - 1# if args.switch_time == 0 else 0
-    print('Batch schedule', batch_schedule)
-    train_loader = prepare_dataset(
-        args.data_dir, 'mr_both', tokenizer,
-        batch_schedule[cur_b_schedule][0], batch_schedule[cur_b_schedule][1],
-        batch_schedule[-1][0], batch_schedule[-1][1],
-        batch_schedule[-1][0], batch_schedule[-1][1],
-        make_test=True,
-        data_type=args.data_type
+    seq_len = VAE.config.n_ctx
+    test_loader = prepare_dataset(
+        args.data_dir, 'mr_pos', tokenizer,
+        1, seq_len, 1, seq_len, args.batch_size, seq_len,
+        make_train=True, make_val=False, make_test=False, data_type=args.data_type
     )[0]
-    test_loader = train_loader
     print('Done.')
 
     VAE.eval()  # be careful about VAE.eval() vs VAE.train()
@@ -276,7 +271,7 @@ def run_model():
 
     # test_iter = iter(test_loader); x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask = next(test_iter)
     with tqdm(total=len(test_loader)) as pbar:
-        for i_test, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label) in enumerate(test_loader):
+        for i_test, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask) in enumerate(test_loader):
 
             length = args.length
             if length == -1:
