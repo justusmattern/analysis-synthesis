@@ -696,6 +696,34 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
 
             return loaders
 
+    elif dataset_name == 'mr_pos_test':
+        train_collate_fn = collate_fn
+        val_collate_fn = collate_fn
+        test_collate_fn = collate_fn
+
+        print('Loading movie review dataset...')
+        data_abs = os.path.join(data_dir, 'mr/positive_test.txt')
+        data_titles = os.path.join(data_dir, 'mr/positive_test.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        with open(data_titles, errors='ignore') as ft:
+            titles = ft.readlines()
+        assert len(titles) == len(abs)
+        pos_train = [('mr', t.strip(), p.strip(), 'negative') for t, p in zip(titles, titles) if t.strip() != '' and p.strip() != '']
+
+        if make_train:
+            train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)
+            d_train = ArxivDataset(pos_train, train_preproc)
+            print('Train dataset size', len(d_train))
+            loaders.append(data.DataLoader(d_train,
+                                           # sampler=DistributedSampler(d_train) if distributed else None,
+                                           batch_size=train_bsz,
+                                           pin_memory=True,
+                                           drop_last=True,
+                                           num_workers=num_workers,
+                                           collate_fn=train_collate_fn) if d_train else None)
+
+            return loaders
 
     elif dataset_name == 'mr_neg':
         train_collate_fn = collate_fn
@@ -726,9 +754,35 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
             return loaders
 
 
+    elif dataset_name == 'mr_neg_test':
+        train_collate_fn = collate_fn
+        val_collate_fn = collate_fn
+        test_collate_fn = collate_fn
+
+        data_abs = os.path.join(data_dir, 'mr/negative_test.txt')
+        data_titles = os.path.join(data_dir, 'mr/negative_test.txt')
+        with open(data_abs, errors='ignore') as fp:
+            abs = fp.readlines()
+        with open(data_titles, errors='ignore') as ft:
+            titles = ft.readlines()
+        assert len(titles) == len(abs)
+        neg_train = [('mr', t.strip(), p.strip(), 'negative') for t, p in zip(titles, titles) if t.strip() != '' and p.strip() != '']
 
 
-    
+        if make_train:
+            train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)
+            d_train = ArxivDataset(neg_train, train_preproc)
+            print('Train dataset size', len(d_train))
+            loaders.append(data.DataLoader(d_train,
+                                           # sampler=DistributedSampler(d_train) if distributed else None,
+                                           batch_size=train_bsz,
+                                           pin_memory=True,
+                                           drop_last=True,
+                                           num_workers=num_workers,
+                                           collate_fn=train_collate_fn) if d_train else None)
+            return loaders
+
+
     elif dataset_name == 'mr_both':
         train_collate_fn = collate_fn
         val_collate_fn = collate_fn

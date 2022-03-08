@@ -470,6 +470,24 @@ def main():
         make_test=True,
         num_workers=args.workers, data_type=args.data_type
     )[0]
+
+    test_pos_loader = prepare_dataset(
+        args.data_dir, 'mr_pos_test', tokenizer,
+        batch_schedule[cur_b_schedule][0], batch_schedule[cur_b_schedule][1],
+        batch_schedule[-1][0], batch_schedule[-1][1],
+        batch_schedule[-1][0], batch_schedule[-1][1],
+        make_test=True,
+        num_workers=args.workers, data_type=args.data_type
+    )[0]
+
+    test_neg_loader = prepare_dataset(
+        args.data_dir, 'mr_neg_test', tokenizer,
+        batch_schedule[cur_b_schedule][0], batch_schedule[cur_b_schedule][1],
+        batch_schedule[-1][0], batch_schedule[-1][1],
+        batch_schedule[-1][0], batch_schedule[-1][1],
+        make_test=True,
+        num_workers=args.workers, data_type=args.data_type
+    )[0]
     test_loader = train_loader
     print('Done.')
 
@@ -514,7 +532,7 @@ def main():
 
         # val_iter = iter(val_loader); x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask = next(val_iter)
         with tqdm(total=min(len(val_loader), max_val_batches)) as pbar:
-            for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label, domains) in enumerate(val_loader):
+            for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label) in enumerate(val_loader):
                 with torch.no_grad():
                     if args.model_type == 'cvae':
                         loss, ce_loss, kl_loss = compute_loss(device, VAE, x_mask, x_tokens, y_mask, y_tokens,
@@ -904,6 +922,13 @@ def main():
                 output = train_step(device, VAE, optimizer, x_mask, x_tokens, y_mask, y_tokens,
                                     input_tokens, target_tokens, mask, loss_fn, beta, args.model_type)
                 loss, ce_loss, kl_loss = output[-1]
+
+                if num_iters % 300 == 0:
+                    print('eval for pos reviews!!')
+                    val_step(test_pos_loader)
+                    print('######')
+                    print('eval for neg reviews!!')
+                    val_step(test_neg_loader)
 
                 lr = scheduler.get_last_lr()[0]
                 # Log to Tensorboard
