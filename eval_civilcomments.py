@@ -486,7 +486,7 @@ def main():
     cur_b_schedule = len(batch_schedule) - 1 if args.switch_time == 0 else 0
     print('Batch schedule', batch_schedule)
     train_loader = prepare_dataset(
-        args.data_dir, 'civilcomments_test', tokenizer,
+        args.data_dir, 'mr_both', tokenizer,
         batch_schedule[cur_b_schedule][0], batch_schedule[cur_b_schedule][1],
         batch_schedule[-1][0], batch_schedule[-1][1],
         batch_schedule[-1][0], batch_schedule[-1][1],
@@ -591,38 +591,49 @@ def main():
 
 
 
-    for e in [2,5,10,18,35]:
-        print(f'evaluating models for epoch {e}')
-        try:
-            VAE1.load_state_dict(torch.load(f'./out/civilcomm/model_negative_books_epoch{e}.pt'))
-            VAE2.load_state_dict(torch.load(f'./out/civilcomm/model_approved_books_epoch{e}.pt'))
-        except FileNotFoundError:
-            print('file not existing')
-            continue
+    print(f'evaluating models for epoch {e}')
+    try:
+        VAE1.load_state_dict(torch.load(f'./out/movie_review2/model_negative_books_epoch22.pt'))
+        VAE2.load_state_dict(torch.load(f'./out/movie_review3/model_approved_books_epoch34.pt'))
+    except FileNotFoundError:
+        print('file not existing')
 
-        losses_pos = []
-        losses_neg = []
-        labels = []
+    losses_pos = []
+    losses_neg = []
+    labels = []
 
-        losses_pos, labels, domains = compute_latent_losses_for_classification(train_loader, VAE1)
-        losses_neg, labels, domains = compute_latent_losses_for_classification(train_loader, VAE2)
-        """
-        for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label) in enumerate(train_loader):
-            VAE1.eval()
-            VAE2.eval()
-            if i %100 == 0:
-                print(i)
-            loss_pos = compute_masked_loss(device, VAE1, optimizer1, x_mask, x_tokens, y_mask, y_tokens,
-                                       input_tokens, target_tokens, mask, loss_fn, beta, args.model_type)
-            
-            loss_neg = compute_masked_loss(device, VAE2, optimizer2, x_mask, x_tokens, y_mask, y_tokens,
-                                       input_tokens, target_tokens, mask, loss_fn, beta, args.model_type)
-            
-            losses_pos.append(loss_pos)
-            losses_neg.append(loss_neg)
-            labels.append(label)
-        """
-        evaluate_classification_civilcomments(losses_pos, losses_neg, labels, domains)
+    #losses_pos, labels = compute_latent_losses_for_classification(train_loader, VAE1)
+    #losses_neg, labels = compute_latent_losses_for_classification(train_loader, VAE2)
+    
+    for i, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label) in enumerate(train_loader):
+        VAE1.eval()
+        VAE2.eval()
+        if i %100 == 0:
+            print(i)
+        loss_pos = compute_masked_loss(device, VAE1, optimizer1, x_mask, x_tokens, y_mask, y_tokens,
+                                    input_tokens, target_tokens, mask, loss_fn, beta, args.model_type)
+        
+        loss_neg = compute_masked_loss(device, VAE2, optimizer2, x_mask, x_tokens, y_mask, y_tokens,
+                                    input_tokens, target_tokens, mask, loss_fn, beta, args.model_type)
+        
+        losses_pos.append(loss_pos)
+        losses_neg.append(loss_neg)
+        labels.append(label)
+
+    rights = 0
+
+    for pos, neg, label in zip(losses_pos, losses_neg, labels):
+        if pos > neg:
+            pred = 'negative'
+        else:
+            pred = 'positive'
+        
+        if pred == label:
+            rights += 1
+    
+    print('accuracy: ', rights/len(labels))
+
+    #evaluate_classification_civilcomments(losses_pos, losses_neg, labels, domains)
 
 
 if __name__ == "__main__":
