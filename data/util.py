@@ -809,7 +809,7 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
 
         test_texts = pos_test + neg_test
         shuffle(test_texts)
-        test_texts = random.sample(test_texts, 20)
+        test_texts = random.sample(test_texts, 800)
 
         #if make_train:
         train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)
