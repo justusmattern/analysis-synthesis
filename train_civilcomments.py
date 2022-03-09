@@ -473,18 +473,14 @@ def main():
 
     test_pos_loader = prepare_dataset(
         args.data_dir, 'mr_pos_test', tokenizer,
-        batch_schedule[cur_b_schedule][0], batch_schedule[cur_b_schedule][1],
-        batch_schedule[-1][0], batch_schedule[-1][1],
-        batch_schedule[-1][0], batch_schedule[-1][1],
+        1, 70, 1, 70, 1, 70,
         make_test=True,
         num_workers=args.workers, data_type=args.data_type
     )[0]
 
     test_neg_loader = prepare_dataset(
         args.data_dir, 'mr_neg_test', tokenizer,
-        batch_schedule[cur_b_schedule][0], batch_schedule[cur_b_schedule][1],
-        batch_schedule[-1][0], batch_schedule[-1][1],
-        batch_schedule[-1][0], batch_schedule[-1][1],
+        1, 70, 1, 70, 1, 70,
         make_test=True,
         num_workers=args.workers, data_type=args.data_type
     )[0]

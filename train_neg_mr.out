@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "train_civilcomments.py", line 11, in <module>
+    from transformers import GPT2Tokenizer, GPT2LMHeadModel, GPT2Config, AdamW, get_linear_schedule_with_warmup, Conv1D
+ImportError: cannot import name 'get_linear_schedule_with_warmup' from 'transformers' (/home/zjin/users/justus_mattern/anaconda3/lib/python3.8/site-packages/transformers/__init__.py)

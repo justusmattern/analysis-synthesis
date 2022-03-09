@@ -1,0 +1,40 @@
+2022-03-08 23:39:31.688863: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-03-08 23:39:31.688933: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Traceback (most recent call last):
+  File "train_civilcomments.py", line 22, in <module>
+    from data.util import *
+  File "/home/zjin/users/justus_mattern/code/TransformerCVAE/data/util.py", line 12, in <module>
+    from rake_nltk import Rake
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/rake_nltk/__init__.py", line 25, in <module>
+    from .rake import Metric, Rake
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/rake_nltk/rake.py", line 14, in <module>
+    import nltk
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/nltk/__init__.py", line 146, in <module>
+    from nltk.chunk import *
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/nltk/chunk/__init__.py", line 155, in <module>
+    from nltk.chunk.api import ChunkParserI
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/nltk/chunk/api.py", line 14, in <module>
+    from nltk.parse import ParserI
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/nltk/parse/__init__.py", line 100, in <module>
+    from nltk.parse.transitionparser import TransitionParser
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/nltk/parse/transitionparser.py", line 19, in <module>
+    from sklearn.datasets import load_svmlight_file
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/sklearn/datasets/__init__.py", line 48, in <module>
+    from ._olivetti_faces import fetch_olivetti_faces
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/sklearn/datasets/_olivetti_faces.py", line 20, in <module>
+    from scipy.io.matlab import loadmat
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/scipy/io/__init__.py", line 97, in <module>
+    from .matlab import loadmat, savemat, whosmat, byteordercodes
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/scipy/io/matlab/__init__.py", line 11, in <module>
+    from .mio import loadmat, savemat, whosmat
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/scipy/io/matlab/mio.py", line 10, in <module>
+    from .mio5 import MatFile5Reader, MatFile5Writer
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/scipy/io/matlab/mio5.py", line 811, in <module>
+    class MatFile5Writer:
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/scipy/io/matlab/mio5.py", line 820, in MatFile5Writer
+    oned_as='row'):
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/scipy/_lib/doccer.py", line 223, in decorate
+    f.__doc__ = docformat(f.__doc__, docdict)
+  File "/home/zjin/users/justus_mattern/anaconda3/envs/transformer-vae/lib/python3.7/site-packages/scipy/_lib/doccer.py", line 57, in docformat
+    for name, dstr in docdict.items():
+KeyboardInterrupt
