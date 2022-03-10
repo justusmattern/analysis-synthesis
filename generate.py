@@ -100,7 +100,7 @@ def sample_sequence(model, tokenizer, length, batch_size=None, x_mask=None, x_to
             posterior_mean, posterior_logvar = model.encoder(input_ids=x_tokens, attention_mask=x_mask)[:2]
             latent_mean, latent_logvar = posterior_mean, posterior_logvar
             print(latent_mean.shape)
-            z =  torch.zeros([1, 768], device='cuda')
+            z = latent_mean
             assert not torch.isnan(z).any(), 'training get nan z'
 
         for i in range(length): #trange
@@ -126,6 +126,7 @@ def sample_sequence(model, tokenizer, length, batch_size=None, x_mask=None, x_to
             # early stopping if all sents have ended once
             if_end[next_token.view(-1).eq(eos_token)] = True
             if if_end.all(): break
+    print(output)
     return output, probability
 
 
@@ -247,7 +248,7 @@ def run_model():
     cur_b_schedule = len(batch_schedule) - 1# if args.switch_time == 0 else 0
     print('Batch schedule', batch_schedule)
     train_loader = prepare_dataset(
-        args.data_dir, 'mr_both', tokenizer,
+        args.data_dir, 'mr_pos', tokenizer,
         batch_schedule[cur_b_schedule][0], batch_schedule[cur_b_schedule][1],
         batch_schedule[-1][0], batch_schedule[-1][1],
         batch_schedule[-1][0], batch_schedule[-1][1],

@@ -80,6 +80,8 @@ def compute_loss_ae(device, model, x_mask, x_tokens, y_mask, y_tokens, input_tok
 
     logits = outputs[0]
     kl_loss = outputs[-1]
+    #print(logits.shape)
+    #print('gen', torch.argmax(logits, 2))
     num_logits = logits.size(-1)
 
     # Perform masking
@@ -88,6 +90,8 @@ def compute_loss_ae(device, model, x_mask, x_tokens, y_mask, y_tokens, input_tok
         mask = mask.to(device)
         logits = logits.masked_select(mask.unsqueeze(-1))
         target_tokens = target_tokens.masked_select(mask)
+
+    #print('target', target_tokens[0])
 
     ce_loss = loss_fn(logits.view(-1, num_logits), target_tokens.view(-1))
     kl_loss = kl_loss.mean()
@@ -319,7 +323,7 @@ def main():
     parser.add_argument('experiment', type=str)
 
     # Default parameters are set based on single GPU training
-    parser.add_argument('--lr', type=float, default=1e-4)
+    parser.add_argument('--lr', type=float, default=5e-4)
     parser.add_argument("--seed", type=int, default=0)
 
     parser.add_argument('--data_type', type=str, default='t1', choices=['t' + str(i) for i in range(9)], help="t: type")
@@ -351,7 +355,7 @@ def main():
     parser.add_argument('--beta_0', default=1/50, type=float)
     parser.add_argument('--beta_warmup', type=int, default=10000)
     # cyc_vae parameters
-    parser.add_argument('--cycle', type=int, default=21000)
+    parser.add_argument('--cycle', type=int, default=2000)
 
     parser.add_argument('--add_input', action="store_true")
     parser.add_argument('--add_attn', action="store_true")
@@ -509,7 +513,7 @@ def main():
     logging.info("Begin training iterations")
     max_val_batches = 20000  # max num. of val batches
     logging.info("Total iteration: %d" % args.iterations)
-    e = 0  # number of epoch
+    e = 0 # number of epoch
     num_iters = 0
     optimizer.zero_grad()
     beta = args.beta_0
@@ -888,7 +892,7 @@ def main():
     #val_step(val_loader)
     #generate(test_loader, num_iters)
     torch.save(VAE.state_dict(), os.path.join(save_folder, 'model_' + '{:07d}'.format(num_iters) + '.pt'))
-    #VAE.load_state_dict(torch.load(os.path.join(save_folder, f'model_positive_books_epoch27.pt')))
+    #VAE.load_state_dict(torch.load(os.path.join(save_folder, f'model_approved_books_epoch57.pt')))
     
     while num_iters < args.iterations:
         # Run epoch
@@ -907,7 +911,7 @@ def main():
                 #print('domains', domains)
                 #print('dom shape', domains.shape)
                 if num_iters % args.cycle >= args.cycle - args.beta_warmup:
-                    beta = min(1.0, beta + (1. - args.beta_0) / args.beta_warmup)
+                    beta = min(1/200, beta + (1/200 - args.beta_0) / args.beta_warmup)
 
                 if not tuning_all and num_iters >= tuning_all_after_iters:
                     for name, parameter in VAE.named_parameters():

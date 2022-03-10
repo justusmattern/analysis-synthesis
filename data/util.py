@@ -444,7 +444,7 @@ def collate_fn(samples):
     # tokenizer.convert_tokens_to_ids('<|startoftext|>') = 50257
     input = torch.LongTensor([ip[2] + [50256] * (max_len - len(ip[2])) for ip in samples])
 
-    label = [s[3] for s in samples][0]
+    label = [s[3] for s in samples]
 
     return x_mask, x, y_mask, y, input[:, :-1], input[:, 1:].contiguous(), input_mask[:, 1:], label
 
@@ -681,7 +681,7 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
             titles = ft.readlines()
         assert len(titles) == len(abs)
         pos_train = [('mr', t.strip(), p.strip(), 'negative') for t, p in zip(titles, titles) if t.strip() != '' and p.strip() != '']
-
+        #pos_train = random.sample(pos_train, 20)
         if make_train:
             train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)
             d_train = ArxivDataset(pos_train, train_preproc)
@@ -809,7 +809,7 @@ def prepare_dataset(data_dir, dataset_name, tokenizer, train_bsz, train_seq_len,
 
         test_texts = pos_test + neg_test
         shuffle(test_texts)
-        test_texts = random.sample(test_texts, 800)
+        #test_texts = random.sample(test_texts, 20)
 
         #if make_train:
         train_preproc = Preprocessor(tokenizer, train_seq_len, data_type)

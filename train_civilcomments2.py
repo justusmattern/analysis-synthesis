@@ -341,7 +341,7 @@ def main():
     parser.add_argument('--workers', default=1, type=int, metavar='N',
                         help='number of data loading workers')
     # use GPU
-    parser.add_argument('--gpu', default=0, type=int)
+    parser.add_argument('--gpu', default=2, type=int)
     parser.add_argument('--no_gpu', action="store_true")
 
     parser.add_argument('--fp16', action='store_true', help="Train using FP16?")
@@ -377,7 +377,7 @@ def main():
         torch.cuda.set_device(args.gpu)
         print('Current single GPU: {}'.format(torch.cuda.current_device()))
     device = torch.device(args.gpu if gpu else "cpu")
-
+    #device = torch.device('cuda:3')
     # randomness
     np.random.seed(args.seed)
     prng = np.random.RandomState()
@@ -907,7 +907,7 @@ def main():
                 #print('domains', domains)
                 #print('dom shape', domains.shape)
                 if num_iters % args.cycle >= args.cycle - args.beta_warmup:
-                    beta = min(1.0, beta + (1. - args.beta_0) / args.beta_warmup)
+                    beta = min(0.000000001, beta + (0.000000001 - args.beta_0) / args.beta_warmup)
 
                 if not tuning_all and num_iters >= tuning_all_after_iters:
                     for name, parameter in VAE.named_parameters():

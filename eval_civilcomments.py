@@ -190,14 +190,14 @@ def repeat_score(text, ngram=[3, 4, 5, 6]):
 
 
 def compute_sentence_losses(model, tokenizer, length, batch_size=None, x_mask=None, x_tokens=None, y_mask=None, y_tokens=None,
-                            temperature=1, top_k=100, top_p=0.95, device='cuda', sample=True, eos_token=None, model_type='cvae', lr=0.07, latent_epochs=25):
+                            temperature=1, top_k=100, top_p=0.95, device='cuda', sample=True, eos_token=None, model_type='cvae', lr=0.125, latent_epochs=25):
             
     
     x_mask = x_mask.to(device)
     x_tokens = x_tokens.to(device)
     y_mask = y_mask.to(device)
     y_tokens = y_tokens.to(device) # y tokens shape (1, length), e.g (1, 250)
-    print(y_tokens.shape)
+    #print(y_tokens.shape)
 
     loss_fn = nn.CrossEntropyLoss(reduction='none')
 
@@ -206,7 +206,7 @@ def compute_sentence_losses(model, tokenizer, length, batch_size=None, x_mask=No
     for param in model.parameters():
         param.requires_grad = False
     
-    z = torch.randn((1, 768)).to(device)
+    z = torch.randn((len(x_tokens), 768)).to(device)
 
     with torch.enable_grad():
 
@@ -217,13 +217,18 @@ def compute_sentence_losses(model, tokenizer, length, batch_size=None, x_mask=No
 
         for j in range(latent_epochs):
             sentence_loss = 0
-            
-            prev = x_tokens[:, -1].view(batch_size, -1)        
+            #print('batch size', batch_size)
+            prev = x_tokens[:, -1].view(len(x_tokens), -1)        
 
             output = prev
             probability = torch.tensor([], dtype=z.dtype, device=device)
+            #print(output.shape)
+            #print('output', output)
+            #print(z.shape)
+            #print('target shape', target_tokens.shape)
+            #print(target_tokens.view(-1,1).shape)
 
-            for i, original_token in enumerate(target_tokens.view(-1,1)): #trange
+            for i, original_token in enumerate(target_tokens.transpose(0,1)): #trange
 
                 if i == 0:
                     logits, mem = model.transformer(input_ids=prev, past=None, representations=z)
@@ -239,17 +244,19 @@ def compute_sentence_losses(model, tokenizer, length, batch_size=None, x_mask=No
                 logits = logits[:, -1, :] / temperature
                 logits = top_k_top_p_filtering(logits, top_k, top_p)
                 probs = F.softmax(logits, dim=-1) #(1, 50257)
-
+                #print('probs', probs.shape)
                 sentence_loss += loss_fn(probs.cpu(), original_token.cpu())
 
             
             sentence_loss = sentence_loss / len(target_tokens)
-            kl_loss = model.kl_loss(z.cpu(), torch.ones(768), torch.zeros(768), torch.ones(768))
+            kl_loss = model.kl_loss(z.cpu(), torch.ones(len(x_tokens), 768), torch.zeros(len(x_tokens), 768), torch.ones(len(x_tokens), 768))
             sentence_loss += kl_loss
+            sentence_loss_mean = sentence_loss.mean()
             #with amp.scale_loss(sentence_loss, z_opt) as scale_loss:
                # scale_loss.backward()
                # print(f'sentence_loss epoch {j}', sentence_loss.item())
-            sentence_loss.backward()
+            sentence_loss_mean.backward()
+            print('loss', sentence_loss)
             z_opt.step()
             z_opt.zero_grad()
 
@@ -377,7 +384,7 @@ def main():
         print('Using GPU devices {}'.format(devices))
         torch.cuda.set_device(args.gpu)
         print('Current single GPU: {}'.format(torch.cuda.current_device()))
-    device = torch.device(args.gpu if gpu else "cpu")
+    device = torch.device('cuda:0')
 
     # randomness
     np.random.seed(args.seed)
@@ -547,7 +554,7 @@ def main():
 
         # test_iter = iter(test_loader); x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask = next(test_iter)
         with tqdm(total=len(test_loader)) as pbar:
-            for i_test, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label, domains) in enumerate(
+            for i_test, (x_mask, x_tokens, y_mask, y_tokens, input_tokens, target_tokens, mask, label) in enumerate(
                     test_loader):
 
                 length = -1
@@ -580,30 +587,34 @@ def main():
 
                 #print('loss', loss)
                 losses.extend(loss.tolist())
+                print('label', label)
                 labels.extend(label)
-                all_domains.extend(domains.tolist())
+                #all_domains.extend(domains.tolist())
                 torch.cuda.empty_cache()
                 pbar.update(1)
 
         VAE.train()
 
-        return losses, labels, all_domains
+        return losses, labels #, all_domains
 
 
     #for e1 in range(30):
     #    for e2 in range(40):
     print(f'evaluating models for epoch {e}')
     try:
-        VAE1.load_state_dict(torch.load(f'./out/movie_review2/model_approved_books_epoch22.pt'))
-        VAE2.load_state_dict(torch.load(f'./out/movie_review3/model_approved_books_epoch34.pt'))
+        VAE1.load_state_dict(torch.load(f'./out/movie_review2/model_approved_books_epoch40.pt'))
+        VAE2.load_state_dict(torch.load(f'./out/movie_review3/model_approved_books_epoch40.pt'))
     except FileNotFoundError:
         print('file not existing')
-
+    print(VAE1.add_input)
+    print(VAE1.add_softmax)
+    print(VAE1.add_attn)
     losses_pos = []
     losses_neg = []
     labels = []
 
     losses_pos, labels = compute_latent_losses_for_classification(train_loader, VAE1)
+    print(labels)
     losses_neg, labels = compute_latent_losses_for_classification(train_loader, VAE2)
 
     """
@@ -633,7 +644,8 @@ def main():
                 pred = 'negative'
             else:
                 pred = 'positive'
-
+            print('prediction', pred)
+            print('label', label)
             if pred == label:
                 rights += 1
     #print('e1', e1, 'e2', e2)
